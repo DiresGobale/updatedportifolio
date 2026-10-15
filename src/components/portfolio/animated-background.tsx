@@ -2,17 +2,20 @@
 
 import { motion } from "framer-motion"
 import { AnimatedDecorations } from "./animated-decorations"
+import { AnimatedDecorations3D } from "./animated-decorations-3d"
 
 /**
  * Decorative animated background:
  * - Subtle grid pattern (static)
  * - Three floating gradient orbs with gentle 2D drift + subtle scale
+ * - A layer of small 2D decorations: butterflies, numbers, coding symbols, arrows
+ * - A colorful 3D motion layer: rotating cubes, wireframe polyhedrons,
+ *   parallax orbs at different Z depths, 3D floating symbols
  * - A subtle vignette around the edges (static)
- * - A layer of decorative floating elements: butterflies, numbers,
- *   coding symbols, arrows, and function symbols (all behind content)
  *
- * Animations are intentionally light (2D only, no heavy zoom) for performance.
  * All decoration layers use pointer-events: none so they never block clicks.
+ * Honors prefers-reduced-motion (animations disabled).
+ * Mobile hides most 3D elements to save CPU/battery.
  */
 export function AnimatedBackground() {
   return (
@@ -55,7 +58,10 @@ export function AnimatedBackground() {
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 4 }}
       />
 
-      {/* Decorative floating elements — butterflies, numbers, symbols, arrows */}
+      {/* Colorful 3D motion layer — cubes, polyhedrons, parallax orbs, 3D symbols */}
+      <AnimatedDecorations3D />
+
+      {/* Decorative 2D floating elements — butterflies, numbers, symbols, arrows */}
       <AnimatedDecorations />
 
       {/* Subtle vignette */}
