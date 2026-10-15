@@ -69,6 +69,7 @@ EXCLUDE_FILE_PATTERNS = (
     ".pid",
     ".tsbuildinfo",
     ".map",
+    ".zip",
 )
 
 # Files that should be at the zip root (we'll add a couple of helpful ones)
