@@ -6,7 +6,7 @@ import { profile, socialLinks } from "@/lib/portfolio-data"
 import { Button } from "@/components/ui/button"
 import { SocialIcon } from "./social-icon"
 import { TypewriterEffect } from "./typewriter-effect"
-import { Photo3D } from "./photo-3d"
+import { HeroPhoto } from "./hero-photo"
 import { fadeInUp, fadeInDown, scaleIn } from "./motion"
 
 export function Hero() {
@@ -113,15 +113,15 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: 3D profile photo with zoom breathing + tilt */}
+          {/* Right: Static photo with colorful rotating ring */}
           <motion.div
             variants={scaleIn}
             initial="hidden"
             animate="visible"
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="relative mx-auto lg:mr-0 perspective-1500"
+            transition={{ delay: 0.3, duration: 0.7 }}
+            className="relative mx-auto lg:mr-0"
           >
-            <Photo3D
+            <HeroPhoto
               src={profile.photo}
               alt={profile.photoAlt}
               className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96"

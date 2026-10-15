@@ -14,8 +14,7 @@ import {
 } from "lucide-react"
 import { services } from "@/lib/portfolio-data"
 import { SectionHeading } from "./section-heading"
-import { TiltCard3D } from "./tilt-card-3d"
-import { zoomInUp, staggerContainer, viewportOnce } from "./motion"
+import { slideUp, staggerContainer, viewportOnce } from "./motion"
 
 const serviceIcons: Record<string, LucideIcon> = {
   code: Code2,
@@ -45,47 +44,46 @@ export function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 perspective-1500"
+          className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
         >
           {services.map((service) => {
             const Icon = serviceIcons[service.icon] ?? Code2
             return (
-              <motion.div
+              <motion.article
                 key={service.title}
-                variants={zoomInUp}
-                className="preserve-3d"
+                variants={slideUp}
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                className="group relative glass-card rounded-3xl p-6 sm:p-7 overflow-hidden flex flex-col"
               >
-                <TiltCard3D
-                  maxRotation={12}
-                  hoverScale={1.05}
-                  className="group relative glass-card rounded-3xl p-6 sm:p-7 overflow-hidden flex flex-col h-full"
-                >
-                  {/* Decorative gradient orb */}
-                  <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-gradient-brand opacity-0 group-hover:opacity-25 blur-2xl transition-opacity duration-500 pointer-events-none" />
+                {/* Decorative gradient orb (2D opacity only) */}
+                <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-gradient-brand opacity-0 group-hover:opacity-25 blur-2xl transition-opacity duration-500 pointer-events-none" />
 
-                  <div className="relative flex-1">
-                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-primary-foreground shadow-lg shadow-brand-glow/25 mb-5 group-hover:rotate-6 transition-transform duration-300">
-                      <Icon className="h-7 w-7" />
-                    </div>
-
-                    <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                      {service.description}
-                    </p>
-
-                    <ul className="space-y-2">
-                      {service.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2.5 text-sm">
-                          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
-                            <Check className="h-3 w-3" />
-                          </span>
-                          <span className="text-muted-foreground">{f}</span>
-                        </li>
-                      ))}
-                    </ul>
+                <div className="relative flex-1">
+                  <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-primary-foreground shadow-lg shadow-brand-glow/25 mb-5 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                    <Icon className="h-7 w-7" />
                   </div>
-                </TiltCard3D>
-              </motion.div>
+
+                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                    {service.description}
+                  </p>
+
+                  <ul className="space-y-2">
+                    {service.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2.5 text-sm">
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
+                          <Check className="h-3 w-3" />
+                        </span>
+                        <span className="text-muted-foreground">{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Hover gradient border (2D) */}
+                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-accent/0 group-hover:ring-accent/30 transition-all duration-500" />
+              </motion.article>
             )
           })}
         </motion.div>

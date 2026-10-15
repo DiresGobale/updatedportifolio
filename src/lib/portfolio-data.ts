@@ -64,7 +64,7 @@ export const profile = {
   introduction:
     "I'm Dires — a fourth-year Information System student at Injibara University with a passion for building real, working software. My toolkit spans the full web stack (React, Next.js, Node.js, Express, PostgreSQL), mobile development with Flutter, and UI/UX design in Figma. Every coursework project is a chance to ship something I'd be proud to show a real client.",
   photo:
-    "https://images.unsplash.com/photo-1633332755192-727a05c01931?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
   photoAlt: "Portrait of Dires",
   location: "Injibara, Ethiopia — Remote-friendly",
   email: "hello@dires.dev",
@@ -288,7 +288,7 @@ export const projects: Project[] = [
     longDescription:
       "Built with Flutter and Dart. Uses local SQLite storage so it works fully offline, with charts for visualizing spending by category and month. Designed in Figma first, then implemented with clean Material Design.",
     image:
-      "https://images.unsplash.com/photo-1554224155-672a4f8b1bba?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=1200&q=80",
     tags: ["Flutter", "Dart", "SQLite", "Mobile"],
     github: "https://github.com/dires/expense-tracker-flutter",
     demo: "https://demo.dires.dev/expense-tracker",
