@@ -6,7 +6,7 @@
 export interface SocialLink {
   label: string
   href: string
-  icon: "github" | "linkedin" | "twitter" | "mail" | "instagram" | "dribbble"
+  icon: "github" | "linkedin" | "twitter" | "mail" | "instagram" | "dribbble" | "telegram" | "tiktok"
 }
 
 export interface SkillCategory {
@@ -67,7 +67,7 @@ export const profile = {
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
   photoAlt: "Portrait of Dires",
   location: "Injibara, Ethiopia — Remote-friendly",
-  email: "hello@dires.dev",
+  email: "dires7481@gmail.com",
   phone: "+251 9XX XXX XXX",
   available: true,
   resumeUrl: "#",
@@ -83,10 +83,10 @@ export const navLinks = [
 ]
 
 export const socialLinks: SocialLink[] = [
-  { label: "GitHub", href: "https://github.com", icon: "github" },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
-  { label: "Twitter", href: "https://twitter.com", icon: "twitter" },
-  { label: "Email", href: "mailto:hello@dires.dev", icon: "mail" },
+  { label: "GitHub", href: "https://github.com/DiresGobale", icon: "github" },
+  { label: "Telegram", href: "https://t.me/diresfromGondar", icon: "telegram" },
+  { label: "TikTok", href: "https://tiktok.com/@dires1214", icon: "tiktok" },
+  { label: "Email", href: "mailto:dires7481@gmail.com", icon: "mail" },
 ]
 
 export const stats: Stat[] = [
@@ -321,7 +321,7 @@ export const projects: Project[] = [
 ]
 
 export const contactInfo = {
-  email: "hello@dires.dev",
+  email: "dires7481@gmail.com",
   phone: "+251 9XX XXX XXX",
   location: "Injibara, Ethiopia — Remote-friendly",
   socials: socialLinks,

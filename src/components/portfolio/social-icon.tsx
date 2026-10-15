@@ -6,6 +6,8 @@ import {
   Mail,
   Instagram,
   Dribbble,
+  Send,
+  Music,
 } from "lucide-react"
 
 const iconMap: Record<string, LucideIcon> = {
@@ -15,6 +17,8 @@ const iconMap: Record<string, LucideIcon> = {
   mail: Mail,
   instagram: Instagram,
   dribbble: Dribbble,
+  telegram: Send, // paper plane — closest match to Telegram's icon
+  tiktok: Music, // music note — closest match to TikTok's icon
 }
 
 export function SocialIcon({
