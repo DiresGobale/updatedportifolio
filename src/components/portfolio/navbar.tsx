@@ -37,9 +37,25 @@ export function Navbar() {
   }, [])
 
   const handleNavClick = (href: string) => {
+    // Capture whether the mobile menu was open before we close it.
+    // On mobile, the menu's height close-animation (250ms) interferes with
+    // smooth scrollIntoView — the layout shift cancels the smooth scroll.
+    // So we delay the scroll until after the animation finishes.
+    const wasMobileMenuOpen = mobileOpen
     setMobileOpen(false)
-    const el = document.querySelector(href)
-    el?.scrollIntoView({ behavior: "smooth", block: "start" })
+
+    const scrollToSection = () => {
+      const el = document.querySelector(href)
+      el?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+
+    if (wasMobileMenuOpen) {
+      // Wait for the menu close animation (250ms) + small buffer
+      setTimeout(scrollToSection, 280)
+    } else {
+      // Desktop — no menu animation, scroll immediately
+      scrollToSection()
+    }
   }
 
   return (
