@@ -11,6 +11,7 @@ import { GitHubStatsWidget } from "@/components/portfolio/github-stats"
 import { Testimonials } from "@/components/portfolio/testimonials"
 import { Contact } from "@/components/portfolio/contact"
 import { Footer } from "@/components/portfolio/footer"
+import { Chatbot } from "@/components/portfolio/chatbot"
 
 export default function Home() {
   return (
@@ -30,6 +31,9 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      {/* Floating "Ask about Dires" chatbot — appears in bottom-right corner,
+          knows the full portfolio, replies in any language */}
+      <Chatbot />
     </div>
   )
 }
