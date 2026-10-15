@@ -39,11 +39,54 @@ export const fadeInRight: Variants = {
 }
 
 export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.92 },
+  hidden: { opacity: 0, scale: 0.85 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+
+/** Zoom-in reveal — starts small + transparent, zooms into place */
+export const zoomIn: Variants = {
+  hidden: { opacity: 0, scale: 0.7, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+
+/** Zoom-in from slightly above — gives a "popping in" feel */
+export const zoomInUp: Variants = {
+  hidden: { opacity: 0, scale: 0.8, y: 30 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+
+/** Zoom-in from the side — combines horizontal slide + zoom */
+export const zoomInLeft: Variants = {
+  hidden: { opacity: 0, scale: 0.85, x: -40 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+
+export const zoomInRight: Variants = {
+  hidden: { opacity: 0, scale: 0.85, x: 40 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 }
 

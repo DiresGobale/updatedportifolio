@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alex Carter — Full-Stack Developer & AI Integration Specialist",
+  title: "Dires — Full-Stack Developer & AI Integration Specialist",
   description:
     "Premium developer portfolio showcasing full-stack web development, AI integrations, and modern UI engineering. Built with Next.js, TypeScript, and Tailwind CSS.",
   keywords: [
@@ -26,17 +26,18 @@ export const metadata: Metadata = {
     "AI Integration",
     "Portfolio",
     "Web Developer",
+    "Dires",
   ],
-  authors: [{ name: "Alex Carter" }],
+  authors: [{ name: "Dires" }],
   openGraph: {
-    title: "Alex Carter — Full-Stack Developer & AI Integration Specialist",
+    title: "Dires — Full-Stack Developer & AI Integration Specialist",
     description:
       "Premium developer portfolio showcasing full-stack web development, AI integrations, and modern UI engineering.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alex Carter — Full-Stack Developer",
+    title: "Dires — Full-Stack Developer",
     description: "Premium developer portfolio showcasing full-stack web development and AI integrations.",
   },
 };

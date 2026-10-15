@@ -14,7 +14,15 @@ import {
 import { aboutContent, profile, stats } from "@/lib/portfolio-data"
 import { SectionHeading } from "./section-heading"
 import { AnimatedCounter } from "./animated-counter"
-import { fadeInLeft, fadeInRight, fadeInUp, staggerContainer, viewportOnce } from "./motion"
+import { TiltCard3D } from "./tilt-card-3d"
+import {
+  fadeInLeft,
+  fadeInRight,
+  fadeInUp,
+  zoomInUp,
+  staggerContainer,
+  viewportOnce,
+} from "./motion"
 
 const statIcons: Record<string, typeof Rocket> = {
   rocket: Rocket,
@@ -36,32 +44,37 @@ export function About() {
           description="A quick intro to who I am, what I care about, and how I work."
         />
 
-        {/* Stats row */}
+        {/* Stats row with 3D tilt + zoom-in reveal */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+          className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 perspective-1000"
         >
           {stats.map((stat) => {
             const Icon = statIcons[stat.icon] ?? Rocket
             return (
               <motion.div
                 key={stat.label}
-                variants={fadeInUp}
-                whileHover={{ y: -6 }}
-                className="glass-card rounded-2xl p-5 sm:p-6 text-center group"
+                variants={zoomInUp}
+                className="preserve-3d"
               >
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/15 text-accent mb-4 group-hover:bg-accent/25 transition-colors">
-                  <Icon className="h-6 w-6" />
-                </div>
-                <div className="text-3xl sm:text-4xl font-bold tracking-tight">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                </div>
-                <p className="mt-1 text-xs sm:text-sm text-muted-foreground font-medium">
-                  {stat.label}
-                </p>
+                <TiltCard3D
+                  maxRotation={10}
+                  hoverScale={1.05}
+                  className="glass-card rounded-2xl p-5 sm:p-6 text-center group h-full"
+                >
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-brand text-primary-foreground mb-4 group-hover:scale-110 transition-transform">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <div className="text-3xl sm:text-4xl font-bold tracking-tight">
+                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  </div>
+                  <p className="mt-1 text-xs sm:text-sm text-muted-foreground font-medium">
+                    {stat.label}
+                  </p>
+                </TiltCard3D>
               </motion.div>
             )
           })}
@@ -104,26 +117,27 @@ export function About() {
             </div>
           </motion.div>
 
-          {/* Philosophy cards */}
+          {/* Philosophy cards with 3D tilt */}
           <motion.div
             variants={fadeInRight}
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="space-y-4"
+            className="space-y-4 perspective-1000"
           >
             <h3 className="flex items-center gap-2 text-xl sm:text-2xl font-semibold mb-3">
               <Lightbulb className="h-5 w-5 text-accent" />
               Development philosophy
             </h3>
             {aboutContent.philosophy.map((item, i) => (
-              <motion.div
+              <TiltCard3D
                 key={item.title}
-                whileHover={{ x: 6 }}
+                maxRotation={8}
+                hoverScale={1.02}
                 className="glass-card rounded-2xl p-5"
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-brand text-primary-foreground text-xs font-bold">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-brand-warm text-primary-foreground text-xs font-bold">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
@@ -133,7 +147,7 @@ export function About() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </TiltCard3D>
             ))}
           </motion.div>
         </div>
@@ -165,10 +179,10 @@ export function About() {
                 return (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={viewportOnce}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                     className={`relative flex sm:items-center ${
                       isLeft ? "sm:flex-row-reverse" : ""
                     }`}
@@ -184,7 +198,7 @@ export function About() {
                     {/* Content card */}
                     <div className="ml-12 sm:ml-0 sm:w-1/2 sm:px-8">
                       <motion.div
-                        whileHover={{ y: -4 }}
+                        whileHover={{ y: -4, scale: 1.02 }}
                         className="glass-card rounded-2xl p-5"
                       >
                         <span className="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-medium text-accent mb-2">

@@ -1,11 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Mail, Sparkles } from "lucide-react"
+import { ArrowRight, Mail } from "lucide-react"
 import { profile, socialLinks } from "@/lib/portfolio-data"
 import { Button } from "@/components/ui/button"
 import { SocialIcon } from "./social-icon"
-import { fadeInUp, fadeInDown, viewportOnce } from "./motion"
+import { TypewriterEffect } from "./typewriter-effect"
+import { Photo3D } from "./photo-3d"
+import { fadeInUp, fadeInDown, scaleIn } from "./motion"
 
 export function Hero() {
   const scrollTo = (href: string) => {
@@ -39,11 +41,15 @@ export function Hero() {
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.1 }}
-              className="mt-6 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight"
+              className="mt-6 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight min-h-[2.4em] sm:min-h-[2em] lg:min-h-[1.6em]"
             >
-              Hi, I&apos;m <span className="text-gradient">{profile.firstName}</span>.
-              <br />
-              <span className="text-foreground/90">{profile.title}</span>
+              <span className="block">Hi, I am</span>
+              <span className="block text-gradient text-5xl sm:text-6xl lg:text-7xl xl:text-8xl my-1">
+                {profile.firstName}
+              </span>
+              <span className="block text-xl sm:text-2xl lg:text-3xl xl:text-4xl mt-2 text-foreground/85">
+                <TypewriterEffect words={profile.roles} />
+              </span>
             </motion.h1>
 
             <motion.p
@@ -107,71 +113,19 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Profile photo with floating + glow animation */}
+          {/* Right: 3D profile photo with zoom breathing + tilt */}
           <motion.div
-            variants={fadeInUp}
+            variants={scaleIn}
             initial="hidden"
             animate="visible"
-            transition={{ delay: 0.3 }}
-            className="relative mx-auto lg:mr-0"
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="relative mx-auto lg:mr-0 perspective-1500"
           >
-            <motion.div
-              animate={{ y: [0, -18, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96"
-            >
-              {/* Glow rings */}
-              <motion.div
-                className="absolute -inset-4 rounded-full bg-gradient-brand opacity-30 blur-2xl"
-                animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <motion.div
-                className="absolute -inset-2 rounded-full border border-accent/40"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
-              <motion.div
-                className="absolute -inset-8 rounded-full border border-accent/20"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-              />
-
-              {/* Photo */}
-              <div className="relative h-full w-full rounded-full overflow-hidden glass-card glow-ring">
-                <img
-                  src={profile.photo}
-                  alt={profile.photoAlt}
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/40 via-transparent to-transparent" />
-              </div>
-
-              {/* Floating badges */}
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 glass-card rounded-2xl px-3 py-2 sm:px-4 sm:py-3 shadow-lg"
-              >
-                <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-accent" />
-                  <span className="text-xs sm:text-sm font-semibold">AI-Ready</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 glass-card rounded-2xl px-3 py-2 sm:px-4 sm:py-3 shadow-lg"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs sm:text-sm text-accent font-semibold">
-                    6+ yrs
-                  </span>
-                  <span className="text-xs sm:text-sm text-muted-foreground">experience</span>
-                </div>
-              </motion.div>
-            </motion.div>
+            <Photo3D
+              src={profile.photo}
+              alt={profile.photoAlt}
+              className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96"
+            />
           </motion.div>
         </div>
 

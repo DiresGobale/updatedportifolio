@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { fadeInUp, viewportOnce } from "./motion"
+import { zoomIn, viewportOnce } from "./motion"
 
 interface SectionHeadingProps {
   eyebrow: string
@@ -21,7 +21,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <motion.div
-      variants={fadeInUp}
+      variants={zoomIn}
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}

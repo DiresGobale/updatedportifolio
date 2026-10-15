@@ -49,19 +49,26 @@ export interface ExperienceItem {
 }
 
 export const profile = {
-  name: "Alex Carter",
-  firstName: "Alex",
-  lastName: "Carter",
-  title: "Full-Stack Developer & AI Integration Specialist",
-  tagline: "I build modern, performant web applications with thoughtful UX and intelligent AI integrations.",
+  name: "Dires",
+  firstName: "Dires",
+  lastName: "",
+  // Rotating titles for the typewriter effect in the hero
+  roles: [
+    "Full-Stack Developer",
+    "AI Integration Specialist",
+    "React & Node.js Engineer",
+    "UI/UX Enthusiast",
+  ],
+  tagline:
+    "I craft modern, performant web applications with thoughtful UX, robust back-ends, and intelligent AI integrations that ship.",
   introduction:
-    "I'm a full-stack developer with a passion for crafting elegant solutions to complex problems. Over the past several years I've shipped production-grade applications spanning finance, healthcare, and SaaS — combining clean front-end architecture with robust Node.js backends and thoughtful AI integrations.",
+    "I'm Dires — a full-stack developer who loves turning ideas into polished, production-ready products. I specialize in React, Node.js, and weaving LLM-powered features into real user workflows that genuinely move the needle.",
   photo:
     "https://images.unsplash.com/photo-1633332755192-727a05c01931?auto=format&fit=crop&w=600&q=80",
-  photoAlt: "Portrait of Alex Carter",
-  location: "San Francisco, CA",
-  email: "hello@alexcarter.dev",
-  phone: "+1 (415) 555-0117",
+  photoAlt: "Portrait of Dires",
+  location: "Addis Ababa, Ethiopia — Remote-friendly",
+  email: "hello@dires.dev",
+  phone: "+251 9XX XXX XXX",
   available: true,
   resumeUrl: "#",
 }
@@ -79,7 +86,7 @@ export const socialLinks: SocialLink[] = [
   { label: "GitHub", href: "https://github.com", icon: "github" },
   { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
   { label: "Twitter", href: "https://twitter.com", icon: "twitter" },
-  { label: "Email", href: "mailto:hello@alexcarter.dev", icon: "mail" },
+  { label: "Email", href: "mailto:hello@dires.dev", icon: "mail" },
 ]
 
 export const stats: Stat[] = [
@@ -92,7 +99,7 @@ export const stats: Stat[] = [
 export const aboutContent = {
   heading: "Turning ideas into polished, production-ready products",
   paragraphs: [
-    "I'm a full-stack developer who loves the entire lifecycle of a product — from a blank Figma board and a half-formed idea, to a shipped, monitored, and iterated application. My sweet spot is the boundary between a clean React front-end and a well-architected Node.js/Express API, with a deep interest in weaving LLM-powered features into real user workflows.",
+    "I'm Dires, a full-stack developer who loves the entire lifecycle of a product — from a blank Figma board and a half-formed idea, to a shipped, monitored, and iterated application. My sweet spot is the boundary between a clean React front-end and a well-architected Node.js/Express API, with a deep interest in weaving LLM-powered features into real user workflows.",
     "I believe great software is built on three pillars: empathy for the user, respect for the craft, and a healthy paranoia about edge cases. Whether I'm designing a REST API, optimizing a React render tree, or wiring up an AI prompt pipeline, I focus on long-term maintainability, clear communication, and shipping something I'd be proud to demo to a senior engineer six months from now.",
   ],
   philosophy: [
@@ -137,7 +144,7 @@ export const aboutContent = {
     {
       period: "2015 — 2019",
       role: "B.Sc. Computer Science",
-      organization: "University of California, Berkeley",
+      organization: "Addis Ababa University",
       description:
         "Graduated with honors. Focused on distributed systems and human-computer interaction. President of the Web Dev Club.",
     },
@@ -257,8 +264,8 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
     tags: ["React", "Node.js", "PostgreSQL", "OpenAI", "Vector DB"],
-    github: "https://github.com/alex-carter/ai-employee-recommendation",
-    demo: "https://demo.alexcarter.dev/ai-recruit",
+    github: "https://github.com/dires/ai-employee-recommendation",
+    demo: "https://demo.dires.dev/ai-recruit",
     featured: true,
   },
   {
@@ -270,8 +277,8 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     tags: ["Next.js", "TypeScript", "WebSocket", "Tailwind", "Gemini"],
-    github: "https://github.com/alex-carter/pulse-analytics",
-    demo: "https://pulse.alexcarter.dev",
+    github: "https://github.com/dires/pulse-analytics",
+    demo: "https://pulse.dires.dev",
     featured: true,
   },
   {
@@ -283,8 +290,8 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1455390582262-04428dead604?auto=format&fit=crop&w=1200&q=80",
     tags: ["React", "Node.js", "OpenAI", "Tailwind", "IndexedDB"],
-    github: "https://github.com/alex-carter/inkwell",
-    demo: "https://inkwell.alexcarter.dev",
+    github: "https://github.com/dires/inkwell",
+    demo: "https://inkwell.dires.dev",
   },
   {
     title: "Atlas — Internal Knowledge Base",
@@ -295,8 +302,8 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80",
     tags: ["Next.js", "PostgreSQL", "RAG", "Auth", "Markdown"],
-    github: "https://github.com/alex-carter/atlas-kb",
-    demo: "https://atlas.alexcarter.dev",
+    github: "https://github.com/dires/atlas-kb",
+    demo: "https://atlas.dires.dev",
   },
   {
     title: "Cartflow — Headless E-commerce",
@@ -307,8 +314,8 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80",
     tags: ["Next.js", "Stripe", "PostgreSQL", "Redis", "Express"],
-    github: "https://github.com/alex-carter/cartflow",
-    demo: "https://cartflow.alexcarter.dev",
+    github: "https://github.com/dires/cartflow",
+    demo: "https://cartflow.dires.dev",
   },
   {
     title: "Trailhead — DevOps Dashboard",
@@ -319,15 +326,15 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
     tags: ["React", "Docker", "Socket.io", "Node.js", "GitHub API"],
-    github: "https://github.com/alex-carter/trailhead",
-    demo: "https://trailhead.alexcarter.dev",
+    github: "https://github.com/dires/trailhead",
+    demo: "https://trailhead.dires.dev",
   },
 ]
 
 export const contactInfo = {
-  email: "hello@alexcarter.dev",
-  phone: "+1 (415) 555-0117",
-  location: "San Francisco, CA — Remote-friendly",
+  email: "hello@dires.dev",
+  phone: "+251 9XX XXX XXX",
+  location: "Addis Ababa, Ethiopia — Remote-friendly",
   socials: socialLinks,
 }
 
