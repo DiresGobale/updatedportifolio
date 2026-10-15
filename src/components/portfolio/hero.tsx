@@ -17,12 +17,15 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-x-hidden"
+      className="relative min-h-screen flex items-center pt-20 sm:pt-24 pb-20 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-x-hidden"
     >
       <div className="mx-auto max-w-7xl w-full">
         {/* Grid: single column on mobile (text first, photo second),
-            two columns on md+ (tablet & desktop) with text on left, photo on right. */}
-        <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-10 sm:gap-12 lg:gap-16 items-center">
+            two columns on md+ (tablet & desktop) with text on left, photo right.
+            Mobile gap is 24px (gap-6) for tighter, balanced spacing — the
+            previous 40px gap created an awkward disconnect between text
+            and photo. Tablet/desktop keep larger gaps for breathing room. */}
+        <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-center">
           {/* === Text content === */}
           <div className="text-center md:text-left order-1">
             <motion.div
@@ -90,13 +93,13 @@ export function Hero() {
               </Button>
             </motion.div>
 
-            {/* Social icons */}
+            {/* Social icons — reduced top margin on mobile for tighter rhythm */}
             <motion.div
               variants={fadeInUp}
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.4 }}
-              className="mt-8 sm:mt-10 flex items-center justify-center md:justify-start gap-3"
+              className="mt-6 sm:mt-10 flex items-center justify-center md:justify-start gap-3"
             >
               {socialLinks.map((social) => (
                 <motion.a
@@ -116,15 +119,15 @@ export function Hero() {
           </div>
 
           {/* === Photo (rotating ring + static photo) ===
-              On mobile: smaller (224px) and centered; on sm+: 288px; on md+: 384px.
-              The HeroPhoto component adds its own outer padding so the
-              negative-offset badges never cause horizontal scroll. */}
+              On mobile: 224px centered; sm: 288px; md: 320px; lg: 384px.
+              Removed mt-4 on mobile — the grid gap handles spacing.
+              The HeroPhoto component centers itself and constrains badges. */}
           <motion.div
             variants={scaleIn}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.3, duration: 0.7 }}
-            className="order-2 mt-4 md:mt-0"
+            className="order-2 flex justify-center md:mt-0"
           >
             <HeroPhoto
               src={profile.photo}

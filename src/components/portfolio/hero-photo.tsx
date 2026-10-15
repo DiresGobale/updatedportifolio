@@ -40,11 +40,12 @@ export function HeroPhoto({ src, alt, className }: HeroPhotoProps) {
   }, [])
 
   return (
-    // Outer wrapper — adds horizontal padding so the negative-offset
-    // badges (which sit outside the photo container) never push past
-    // the viewport edge on small screens. overflow-visible ensures
-    // the badges show, but the parent grid column constrains the width.
-    <div className="relative w-full flex justify-center px-6 sm:px-10">
+    // Outer wrapper — minimal horizontal padding on mobile (px-2) so the
+    // photo area aligns with the text column width. On sm+ we use px-6 so
+    // the floating badges (which pop outside on larger screens) have room.
+    // Badges on mobile sit inside the frame (top-2 right-2) so they don't
+    // need the extra padding for overflow protection.
+    <div className="relative w-full flex justify-center px-2 sm:px-6 md:px-10">
       <motion.div
         initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
