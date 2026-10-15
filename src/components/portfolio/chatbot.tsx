@@ -9,24 +9,13 @@ interface Message {
   content: string
 }
 
-// Suggested questions shown as quick-start chips above the input
-const SUGGESTED_QUESTIONS = [
-  "What are Dires's strengths?",
-  "What projects has he built?",
-  "Is he available for work?",
-  "በአማርኛ ስለ ዲሬስ ይንገሩኝ", // "Tell me about Dires in Amharic"
-]
-
-// Initial bot greeting shown before the user asks anything
-const GREETING: Message = {
-  role: "assistant",
-  content:
-    "Hi! I'm Ask about Dires — I know everything on this portfolio. Ask me about his skills, projects, strengths, weaknesses, or how to contact him. I'll reply in your language. 😊",
-}
+// The chat panel starts empty (no greeting, no suggested questions).
+// Only the Reset button (in the header) and the input + send button
+// are visible until the user sends their first message.
 
 export function Chatbot() {
   const [open, setOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([GREETING])
+  const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -127,12 +116,8 @@ export function Chatbot() {
     sendMessage(input)
   }
 
-  function handleSuggested(q: string) {
-    sendMessage(q)
-  }
-
   function clearChat() {
-    setMessages([GREETING])
+    setMessages([])
     setError(null)
   }
 
@@ -308,23 +293,16 @@ export function Chatbot() {
                   </motion.div>
                 )}
 
-                {/* Suggested questions (only shown before the user's first message) */}
-                {messages.length === 1 && !loading && (
-                  <div className="pt-2 space-y-2">
-                    <p className="text-xs text-muted-foreground text-center">
-                      Try one of these:
+                {/* Empty state hint — only shows when no messages yet.
+                    Keeps the panel from looking broken; disappears after the
+                    first message. */}
+                {messages.length === 0 && !loading && (
+                  <div className="flex flex-col items-center justify-center h-full text-center px-6">
+                    <Sparkles className="h-8 w-8 text-accent/50 mb-3" />
+                    <p className="text-sm text-muted-foreground">
+                      Ask me anything about Dires — his skills, projects, or how to contact him.
+                      I reply in your language.
                     </p>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {SUGGESTED_QUESTIONS.map((q) => (
-                        <button
-                          key={q}
-                          onClick={() => handleSuggested(q)}
-                          className="text-xs px-3 py-1.5 rounded-full border border-accent/30 bg-accent/10 text-accent-foreground hover:bg-accent/20 hover:border-accent/50 transition-colors"
-                        >
-                          {q}
-                        </button>
-                      ))}
-                    </div>
                   </div>
                 )}
 

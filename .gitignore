@@ -52,3 +52,22 @@ prompt
 server.log
 # Skills directory
 /skills/
+
+# Mini-services runtime artifacts (PID files, logs, env)
+mini-services/**/service.pid
+mini-services/**/service.log
+mini-services/**/.env
+mini-services/**/.env.*
+
+# Sandbox scripts (local helpers, not part of the portfolio)
+/scripts/start-contact-service.py
+
+# Download folder (deliverables, not source)
+/download/
+
+# Worklog
+/worklog.md
+
+# Z.ai sandbox internal
+/.zscripts/
+/z-ai-config
