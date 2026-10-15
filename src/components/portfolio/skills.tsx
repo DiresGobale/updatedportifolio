@@ -7,6 +7,7 @@ import {
   Database,
   Sparkles,
   Wrench,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react"
 import { skillCategories } from "@/lib/portfolio-data"
@@ -20,6 +21,7 @@ const categoryIcons: Record<string, LucideIcon> = {
   database: Database,
   sparkles: Sparkles,
   wrench: Wrench,
+  smartphone: Smartphone,
 }
 
 export function Skills() {

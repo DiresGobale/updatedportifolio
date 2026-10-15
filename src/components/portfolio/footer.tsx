@@ -26,7 +26,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-              {profile.title}. Building modern, performant web applications with thoughtful UX.
+              Fourth-year Information System student at Injibara University. Building web apps with React/Next.js/Node.js and mobile apps with Flutter.
             </p>
           </div>
 

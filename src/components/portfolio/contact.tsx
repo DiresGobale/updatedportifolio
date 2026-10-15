@@ -183,8 +183,9 @@ export function Contact() {
             <div className="mt-auto pt-8">
               <div className="rounded-2xl bg-accent/10 border border-accent/20 p-4">
                 <p className="text-sm text-accent-foreground/90 leading-relaxed">
-                  <span className="font-semibold">Currently:</span> Available for new
-                  full-stack & AI integration projects. Average response time &lt; 24h.
+                  <span className="font-semibold">Currently:</span> Open to internships
+                  and junior full-stack or Flutter roles. Also available for freelance
+                  coursework-style projects. Average response time &lt; 24h.
                 </p>
               </div>
             </div>

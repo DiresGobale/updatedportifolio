@@ -8,6 +8,7 @@ import {
   Database,
   Layout,
   Globe,
+  Smartphone,
   Check,
   type LucideIcon,
 } from "lucide-react"
@@ -23,6 +24,7 @@ const serviceIcons: Record<string, LucideIcon> = {
   database: Database,
   layout: Layout,
   globe: Globe,
+  smartphone: Smartphone,
 }
 
 export function Services() {

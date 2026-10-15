@@ -14,31 +14,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dires — Full-Stack Developer & AI Integration Specialist",
+  title: "Dires — Information System Student & Full-Stack Developer",
   description:
-    "Premium developer portfolio showcasing full-stack web development, AI integrations, and modern UI engineering. Built with Next.js, TypeScript, and Tailwind CSS.",
+    "Fourth-year Information System student at Injibara University. Full-stack web developer (React, Next.js, Node.js, Express, PostgreSQL), Flutter mobile developer, and UI/UX designer in Figma.",
   keywords: [
+    "Information System Student",
     "Full-Stack Developer",
     "React",
     "Next.js",
     "Node.js",
-    "TypeScript",
-    "AI Integration",
-    "Portfolio",
-    "Web Developer",
+    "Express",
+    "PostgreSQL",
+    "Flutter",
+    "Figma",
+    "UI/UX Design",
     "Dires",
+    "Injibara University",
+    "Portfolio",
   ],
   authors: [{ name: "Dires" }],
   openGraph: {
-    title: "Dires — Full-Stack Developer & AI Integration Specialist",
+    title: "Dires — Information System Student & Full-Stack Developer",
     description:
-      "Premium developer portfolio showcasing full-stack web development, AI integrations, and modern UI engineering.",
+      "Fourth-year IS student at Injibara University. Building web apps with React/Next.js/Node.js, mobile apps with Flutter, and designing in Figma.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dires — Full-Stack Developer",
-    description: "Premium developer portfolio showcasing full-stack web development and AI integrations.",
+    title: "Dires — Information System Student & Developer",
+    description:
+      "Full-stack web (React/Next.js/Node.js) + Flutter mobile + Figma UI/UX. Fourth-year IS student at Injibara University.",
   },
 };
 

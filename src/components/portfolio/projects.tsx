@@ -17,8 +17,8 @@ export function Projects() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Projects"
-          title="Selected work I'm proud of"
-          description="A handful of projects that show how I approach full-stack development, AI integration, and product thinking."
+          title="Projects I've built and shipped"
+          description="A selection of coursework and personal projects that show how I approach full-stack web development, mobile apps with Flutter, and database design."
         />
 
         <motion.div
@@ -26,7 +26,7 @@ export function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 perspective-1500"
+          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 sm:gap-6 perspective-1500 max-w-5xl mx-auto"
         >
           {projects.map((project) => (
             <motion.div
