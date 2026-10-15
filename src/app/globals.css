@@ -232,6 +232,100 @@
     50.01%, 100% { opacity: 0; }
   }
 
+  /* === Decorative background animations ===
+     All GPU-friendly (transform + opacity only), performance-optimized. */
+
+  /* Floating symbol drifts upward across the viewport */
+  @keyframes deco-drift-up {
+    0% { transform: translateY(20vh) translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: var(--deco-opacity, 0.35); }
+    90% { opacity: var(--deco-opacity, 0.35); }
+    100% { transform: translateY(-110vh) translateX(var(--deco-drift-x, 30px)) rotate(var(--deco-rotate, 180deg)); opacity: 0; }
+  }
+
+  /* Floating symbol drifts downward */
+  @keyframes deco-drift-down {
+    0% { transform: translateY(-20vh) translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: var(--deco-opacity, 0.35); }
+    90% { opacity: var(--deco-opacity, 0.35); }
+    100% { transform: translateY(110vh) translateX(var(--deco-drift-x, -30px)) rotate(var(--deco-rotate, -180deg)); opacity: 0; }
+  }
+
+  /* Gentle horizontal drift (stays in place, sways side to side) */
+  @keyframes deco-sway {
+    0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+    25% { transform: translateX(15px) translateY(-8px) rotate(8deg); }
+    50% { transform: translateX(-10px) translateY(-15px) rotate(-5deg); }
+    75% { transform: translateX(-15px) translateY(-5px) rotate(-8deg); }
+  }
+
+  /* Slow rotation in place */
+  @keyframes deco-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Butterfly — flaps wings (scaleX) while drifting diagonally */
+  @keyframes butterfly-flap {
+    0%, 100% { transform: scaleX(1); }
+    50% { transform: scaleX(0.45); }
+  }
+
+  @keyframes butterfly-fly-1 {
+    0% { transform: translate(-10vw, 80vh) rotate(0deg); opacity: 0; }
+    10% { opacity: var(--deco-opacity, 0.5); }
+    25% { transform: translate(20vw, 60vh) rotate(15deg); }
+    50% { transform: translate(50vw, 40vh) rotate(-10deg); }
+    75% { transform: translate(75vw, 20vh) rotate(15deg); }
+    90% { opacity: var(--deco-opacity, 0.5); }
+    100% { transform: translate(110vw, -10vh) rotate(0deg); opacity: 0; }
+  }
+
+  @keyframes butterfly-fly-2 {
+    0% { transform: translate(110vw, 80vh) rotate(0deg); opacity: 0; }
+    10% { opacity: var(--deco-opacity, 0.5); }
+    25% { transform: translate(80vw, 60vh) rotate(-15deg); }
+    50% { transform: translate(50vw, 40vh) rotate(10deg); }
+    75% { transform: translate(20vw, 20vh) rotate(-15deg); }
+    90% { opacity: var(--deco-opacity, 0.5); }
+    100% { transform: translate(-10vw, -10vh) rotate(0deg); opacity: 0; }
+  }
+
+  /* Number/arrow bobbing gently in place */
+  @keyframes deco-bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: var(--deco-opacity, 0.3); }
+    50% { transform: translateY(-12px) rotate(8deg); opacity: calc(var(--deco-opacity, 0.3) * 1.5); }
+  }
+
+  /* Arrow shoots diagonally then fades */
+  @keyframes arrow-shoot-tr {
+    0% { transform: translate(0, 0) rotate(45deg); opacity: 0; }
+    10% { opacity: var(--deco-opacity, 0.4); }
+    90% { opacity: var(--deco-opacity, 0.4); }
+    100% { transform: translate(60vw, -60vh) rotate(45deg); opacity: 0; }
+  }
+
+  @keyframes arrow-shoot-bl {
+    0% { transform: translate(0, 0) rotate(225deg); opacity: 0; }
+    10% { opacity: var(--deco-opacity, 0.4); }
+    90% { opacity: var(--deco-opacity, 0.4); }
+    100% { transform: translate(-60vw, 60vh) rotate(225deg); opacity: 0; }
+  }
+
+  /* Glow pulse for soft halo effect on symbols */
+  @keyframes deco-glow {
+    0%, 100% { filter: drop-shadow(0 0 6px currentColor); }
+    50% { filter: drop-shadow(0 0 12px currentColor); }
+  }
+
+  /* Decorative element base — uses GPU-accelerated transform + opacity */
+  .deco-element {
+    position: absolute;
+    pointer-events: none;
+    will-change: transform, opacity;
+    user-select: none;
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
@@ -247,5 +341,20 @@
   }
   ::-webkit-scrollbar-thumb:hover {
     background: oklch(0.78 0.13 200 / 0.6);
+  }
+}
+
+/* Respect reduced-motion: disable all decorative animations */
+@media (prefers-reduced-motion: reduce) {
+  .deco-element {
+    animation: none !important;
+    opacity: 0.15 !important;
+  }
+}
+
+/* On small screens, reduce the number of animations to save CPU/battery */
+@media (max-width: 640px) {
+  .deco-hide-mobile {
+    display: none !important;
   }
 }

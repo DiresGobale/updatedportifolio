@@ -1,14 +1,18 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { AnimatedDecorations } from "./animated-decorations"
 
 /**
  * Decorative animated background:
  * - Subtle grid pattern (static)
  * - Three floating gradient orbs with gentle 2D drift + subtle scale
  * - A subtle vignette around the edges (static)
+ * - A layer of decorative floating elements: butterflies, numbers,
+ *   coding symbols, arrows, and function symbols (all behind content)
  *
  * Animations are intentionally light (2D only, no heavy zoom) for performance.
+ * All decoration layers use pointer-events: none so they never block clicks.
  */
 export function AnimatedBackground() {
   return (
@@ -50,6 +54,9 @@ export function AnimatedBackground() {
         }}
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 4 }}
       />
+
+      {/* Decorative floating elements — butterflies, numbers, symbols, arrows */}
+      <AnimatedDecorations />
 
       {/* Subtle vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,oklch(0.12_0.018_250/0.6)_100%)]" />
