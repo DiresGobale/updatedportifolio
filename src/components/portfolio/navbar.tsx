@@ -87,7 +87,7 @@ export function Navbar() {
             </span>
           </button>
 
-          {/* Desktop nav */}
+          {/* Desktop nav — with animated yellow underline on hover (pure CSS) */}
           <ul className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace("#", "")
@@ -96,19 +96,22 @@ export function Navbar() {
                   <button
                     onClick={() => handleNavClick(link.href)}
                     className={cn(
-                      "relative px-4 py-2 text-sm font-medium transition-colors rounded-lg",
+                      "nav-underline-trigger relative px-4 py-2 text-sm font-medium transition-colors rounded-lg",
                       isActive
                         ? "text-foreground"
                         : "text-muted-foreground hover:text-foreground"
                     )}
                   >
                     {link.label}
+
+                    {/* === Yellow underline on hover (grows from center) ===
+                        Pure CSS :hover approach for reliable real-mouse
+                        interaction. See `.nav-underline` in globals.css. */}
+                    <span aria-hidden className="nav-underline" />
+
+                    {/* === Persistent underline for the active section === */}
                     {isActive && (
-                      <motion.span
-                        layoutId="nav-active-pill"
-                        className="absolute inset-0 -z-10 rounded-lg bg-accent/15 ring-1 ring-accent/30"
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                      />
+                      <span aria-hidden className="nav-underline-active" />
                     )}
                   </button>
                 </li>
@@ -149,21 +152,37 @@ export function Navbar() {
               className="md:hidden overflow-hidden"
             >
               <ul className="py-4 space-y-1">
-                {navLinks.map((link, i) => (
-                  <motion.li
-                    key={link.href}
-                    initial={{ opacity: 0, x: -16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                  >
-                    <button
-                      onClick={() => handleNavClick(link.href)}
-                      className="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
+                {navLinks.map((link, i) => {
+                  const isActive = activeSection === link.href.replace("#", "")
+                  return (
+                    <motion.li
+                      key={link.href}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
                     >
-                      {link.label}
-                    </button>
-                  </motion.li>
-                ))}
+                      <button
+                        onClick={() => handleNavClick(link.href)}
+                        className={cn(
+                          "nav-underline-trigger relative w-full text-left px-4 py-3 rounded-lg text-base font-medium transition-colors",
+                          isActive
+                            ? "text-foreground bg-accent/10"
+                            : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                        )}
+                      >
+                        {link.label}
+
+                        {/* Yellow underline on hover — grows from left on mobile */}
+                        <span aria-hidden className="nav-underline-mobile" />
+
+                        {/* Persistent underline for active section on mobile */}
+                        {isActive && (
+                          <span aria-hidden className="nav-underline-active-mobile" />
+                        )}
+                      </button>
+                    </motion.li>
+                  )
+                })}
                 <li className="pt-2">
                   <Button
                     onClick={() => handleNavClick("#contact")}
