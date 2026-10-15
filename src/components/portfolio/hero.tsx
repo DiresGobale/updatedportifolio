@@ -17,19 +17,21 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-20 pb-16 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen flex items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-x-hidden"
     >
       <div className="mx-auto max-w-7xl w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-center">
-          {/* Left: Text content */}
-          <div className="text-center lg:text-left">
+        {/* Grid: single column on mobile (text first, photo second),
+            two columns on md+ (tablet & desktop) with text on left, photo on right. */}
+        <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-10 sm:gap-12 lg:gap-16 items-center">
+          {/* === Text content === */}
+          <div className="text-center md:text-left order-1">
             <motion.div
               variants={fadeInDown}
               initial="hidden"
               animate="visible"
-              className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent-foreground"
+              className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-accent-foreground"
             >
-              <span className="relative flex h-2 w-2">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
               </span>
@@ -41,13 +43,13 @@ export function Hero() {
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.1 }}
-              className="mt-6 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight min-h-[2.4em] sm:min-h-[2em] lg:min-h-[1.6em]"
+              className="mt-5 sm:mt-6 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight"
             >
               <span className="block">Hi, I am</span>
-              <span className="block text-gradient text-5xl sm:text-6xl lg:text-7xl xl:text-8xl my-1">
+              <span className="block text-gradient text-5xl sm:text-6xl lg:text-7xl xl:text-8xl my-1 leading-tight">
                 {profile.firstName}
               </span>
-              <span className="block text-xl sm:text-2xl lg:text-3xl xl:text-4xl mt-2 text-foreground/85">
+              <span className="block text-lg sm:text-2xl lg:text-3xl xl:text-4xl mt-2 text-foreground/85 min-h-[1.5em] sm:min-h-[1.4em]">
                 <TypewriterEffect words={profile.roles} />
               </span>
             </motion.h1>
@@ -57,7 +59,7 @@ export function Hero() {
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.2 }}
-              className="mt-6 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed"
+              className="mt-5 sm:mt-6 text-sm sm:text-base lg:text-lg text-muted-foreground max-w-xl mx-auto md:mx-0 leading-relaxed"
             >
               {profile.tagline}
             </motion.p>
@@ -67,7 +69,7 @@ export function Hero() {
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.3 }}
-              className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3"
+              className="mt-7 sm:mt-8 flex flex-wrap items-center justify-center md:justify-start gap-3"
             >
               <Button
                 onClick={() => scrollTo("#projects")}
@@ -94,7 +96,7 @@ export function Hero() {
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.4 }}
-              className="mt-10 flex items-center justify-center lg:justify-start gap-3"
+              className="mt-8 sm:mt-10 flex items-center justify-center md:justify-start gap-3"
             >
               {socialLinks.map((social) => (
                 <motion.a
@@ -113,23 +115,26 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Static photo with colorful rotating ring */}
+          {/* === Photo (rotating ring + static photo) ===
+              On mobile: smaller (224px) and centered; on sm+: 288px; on md+: 384px.
+              The HeroPhoto component adds its own outer padding so the
+              negative-offset badges never cause horizontal scroll. */}
           <motion.div
             variants={scaleIn}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.3, duration: 0.7 }}
-            className="relative mx-auto lg:mr-0"
+            className="order-2 mt-4 md:mt-0"
           >
             <HeroPhoto
               src={profile.photo}
               alt={profile.photoAlt}
-              className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96"
+              className="w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96"
             />
           </motion.div>
         </div>
 
-        {/* Scroll cue */}
+        {/* Scroll cue (desktop only) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

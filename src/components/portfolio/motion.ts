@@ -23,7 +23,7 @@ export const fadeInDown: Variants = {
 }
 
 export const fadeInLeft: Variants = {
-  hidden: { opacity: 0, x: -32 },
+  hidden: { opacity: 0, x: -24 },
   visible: {
     opacity: 1,
     x: 0,
@@ -32,7 +32,7 @@ export const fadeInLeft: Variants = {
 }
 
 export const fadeInRight: Variants = {
-  hidden: { opacity: 0, x: 32 },
+  hidden: { opacity: 0, x: 24 },
   visible: {
     opacity: 1,
     x: 0,

@@ -34,7 +34,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="relative py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8"
+      className="relative py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-x-hidden"
     >
       <div className="mx-auto max-w-7xl">
         <SectionHeading
@@ -43,8 +43,10 @@ export function About() {
           description="A quick intro to who I am, what I care about, and how I work."
         />
 
-        {/* === Two-column: Portrait (left) + Bio (right) === */}
-        <div className="mt-14 grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-14 items-center">
+        {/* === Two-column: Portrait (left) + Bio (right) ===
+            On mobile: stacked (portrait on top, bio below).
+            On md+ (tablet & desktop): side-by-side. */}
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-[0.85fr_1.15fr] gap-10 md:gap-12 lg:gap-14 items-center">
           {/* Portrait */}
           <AboutPortrait />
 

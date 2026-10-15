@@ -8,6 +8,14 @@ import { profile } from "@/lib/portfolio-data"
 /**
  * Stylish portrait photo placeholder for the About section.
  *
+ * Responsive design:
+ * - The outer wrapper has horizontal padding so the gradient frame
+ *   (-inset-2) and floating badges (-top-3 -right-3 etc.) never
+ *   cause horizontal page scroll on small screens.
+ * - The portrait uses a max-width and centers itself on mobile.
+ * - Badges sit just inside the frame on mobile (no negative offset)
+ *   and pop slightly outside on sm+ for a more dynamic look.
+ *
  * Design:
  * - Rounded-rectangle portrait (not circular — different from hero)
  * - Subtle gradient frame that catches light
@@ -31,14 +39,16 @@ export function AboutPortrait() {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto max-w-sm lg:max-w-none"
+      // px-5 sm:px-6 absorbs the negative-offset badges so they never
+      // push past the viewport edge on small screens.
+      className="relative mx-auto max-w-sm lg:max-w-none px-5 sm:px-6"
     >
       <motion.div
         animate={isReducedMotion ? {} : { y: [0, -10, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         className="relative"
       >
-        {/* Gradient frame behind the photo */}
+        {/* Gradient frame behind the photo (now inside the padding zone) */}
         <div
           aria-hidden
           className="absolute -inset-2 rounded-3xl bg-gradient-brand opacity-60 blur-md"
@@ -63,7 +73,7 @@ export function AboutPortrait() {
           </div>
         </div>
 
-        {/* Floating location badge */}
+        {/* Floating location badge — inside the frame on mobile, outside on sm+ */}
         <motion.div
           animate={isReducedMotion ? {} : { y: [0, -6, 0] }}
           transition={{
@@ -72,13 +82,13 @@ export function AboutPortrait() {
             ease: "easeInOut",
             delay: 0.5,
           }}
-          className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 glass-card rounded-2xl px-3 py-2 shadow-lg flex items-center gap-2"
+          className="absolute top-2 right-2 sm:-top-3 sm:-right-3 md:-top-4 md:-right-4 glass-card rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:px-3 sm:py-2 shadow-lg flex items-center gap-1.5 sm:gap-2 max-w-[calc(100%-1rem)] sm:max-w-none"
         >
-          <MapPin className="h-3.5 w-3.5 text-accent" />
-          <span className="text-xs font-medium">Injibara, Ethiopia</span>
+          <MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-accent shrink-0" />
+          <span className="text-[10px] sm:text-xs font-medium whitespace-nowrap">Injibara, Ethiopia</span>
         </motion.div>
 
-        {/* Floating status badge */}
+        {/* Floating status badge — inside the frame on mobile, outside on sm+ */}
         <motion.div
           animate={isReducedMotion ? {} : { y: [0, 6, 0] }}
           transition={{
@@ -87,10 +97,10 @@ export function AboutPortrait() {
             ease: "easeInOut",
             delay: 1,
           }}
-          className="absolute -bottom-3 -left-3 sm:-bottom-4 sm:-left-4 glass-card rounded-2xl px-3 py-2 shadow-lg flex items-center gap-2"
+          className="absolute bottom-2 left-2 sm:-bottom-3 sm:-left-3 md:-bottom-4 md:-left-4 glass-card rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:px-3 sm:py-2 shadow-lg flex items-center gap-1.5 sm:gap-2 max-w-[calc(100%-1rem)] sm:max-w-none"
         >
-          <Sparkles className="h-3.5 w-3.5 text-accent" />
-          <span className="text-xs font-medium">Available for internships</span>
+          <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-accent shrink-0" />
+          <span className="text-[10px] sm:text-xs font-medium whitespace-nowrap">Available for internships</span>
         </motion.div>
       </motion.div>
     </motion.div>
