@@ -71,3 +71,7 @@ mini-services/**/.env.*
 # Z.ai sandbox internal
 /.zscripts/
 /z-ai-config
+
+# Sandbox-internal scripts and runtime
+/.zscripts/
+/db/
