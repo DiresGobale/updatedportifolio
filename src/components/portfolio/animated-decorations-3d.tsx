@@ -125,8 +125,10 @@ function FloatingOrb({
         height: `${size}px`,
         borderRadius: "9999px",
         background: colors,
-        filter: "blur(2px)",
-        boxShadow: "0 0 30px currentColor",
+        // Removed filter: blur(2px) — the radial-gradient already fades to
+        // transparent at 80%, so the edges are soft without an expensive
+        // per-frame blur filter. Saves a filter rasterization per orb.
+        boxShadow: "0 0 20px currentColor",
       }}
     />
   )
@@ -163,6 +165,8 @@ function FloatingSymbol3D({
 }
 
 // === Cubes — small (24–36px), colorful, tumbling in 3D ===
+// Reduced from 3 to 1 for performance: each cube = 6 preserve-3d faces,
+// 3 cubes = 18 GPU layers. 1 cube keeps the visual interest at 1/3 cost.
 const cubes = [
   {
     size: 32,
@@ -182,45 +186,11 @@ const cubes = [
       GRAD.pinkToAmber,
     ] as [string, string, string, string, string, string],
   },
-  {
-    size: 26,
-    left: "82%",
-    top: "28%",
-    animation: "deco-3d-tumble",
-    duration: "22s",
-    delay: "5s",
-    opacity: 0.5,
-    hideOnMobile: true,
-    faces: [
-      GRAD.violetToPink,
-      GRAD.cyanToAmber,
-      GRAD.amberToPink,
-      GRAD.tealToCyan,
-      GRAD.pinkToAmber,
-      GRAD.cyanToViolet,
-    ] as [string, string, string, string, string, string],
-  },
-  {
-    size: 36,
-    left: "70%",
-    top: "70%",
-    animation: "deco-3d-tumble",
-    duration: "26s",
-    delay: "10s",
-    opacity: 0.5,
-    hideOnMobile: true,
-    faces: [
-      GRAD.tealToCyan,
-      GRAD.amberToPink,
-      GRAD.cyanToViolet,
-      GRAD.violetToPink,
-      GRAD.cyanToAmber,
-      GRAD.pinkToAmber,
-    ] as [string, string, string, string, string, string],
-  },
 ]
 
 // === Wireframe polyhedrons — colorful, rotating in 3D ===
+// Reduced from 3 to 1 for performance: each polyhedron = 3 preserve-3d rings,
+// 3 polyhedrons = 9 GPU layers. 1 polyhedron keeps the look at 1/3 cost.
 const polyhedrons = [
   {
     size: 40,
@@ -233,31 +203,12 @@ const polyhedrons = [
     opacity: 0.45,
     hideOnMobile: true,
   },
-  {
-    size: 32,
-    left: "55%",
-    top: "12%",
-    color: "oklch(0.78 0.13 200)",
-    animation: "deco-3d-rotate",
-    duration: "20s",
-    delay: "8s",
-    opacity: 0.5,
-    hideOnMobile: true,
-  },
-  {
-    size: 36,
-    left: "90%",
-    top: "60%",
-    color: "oklch(0.72 0.16 330)",
-    animation: "deco-3d-rotate",
-    duration: "28s",
-    delay: "14s",
-    opacity: 0.4,
-    hideOnMobile: true,
-  },
 ]
 
 // === Floating gradient orbs at different Z depths (parallax) ===
+// Reduced from 3 to 2 for performance: orbs use blur(2px) and animate
+// opacity/scale, which is moderately expensive. 2 orbs cover the visual
+// need without tripling the cost.
 const orbs = [
   {
     size: 100,
@@ -283,27 +234,14 @@ const orbs = [
     opacity: 0.55,
     hideOnMobile: true,
   },
-  {
-    size: 90,
-    left: "45%",
-    top: "85%",
-    colors:
-      "radial-gradient(circle at 30% 30%, oklch(0.7 0.14 165 / 0.55), oklch(0.78 0.13 200 / 0.3) 60%, transparent 80%)",
-    animation: "deco-3d-parallax",
-    duration: "18s",
-    delay: "11s",
-    opacity: 0.5,
-    hideOnMobile: true,
-  },
 ]
 
-// === 3D floating symbols (small, code-themed, colorful) ===
-const symbols3D = [
-  { char: "{", color: "oklch(0.78 0.13 200)", size: 22, weight: 300, left: "30%", top: "30%", animation: "deco-3d-float-1", duration: "14s", delay: "0s", opacity: 0.45, hideOnMobile: true },
-  { char: "}", color: "oklch(0.82 0.14 75)", size: 24, weight: 300, left: "65%", top: "65%", animation: "deco-3d-float-2", duration: "16s", delay: "3s", opacity: 0.45, hideOnMobile: true },
-  { char: "</>", color: "oklch(0.72 0.16 280)", size: 18, weight: 500, left: "20%", top: "85%", animation: "deco-3d-float-3", duration: "18s", delay: "5s", opacity: 0.4, hideOnMobile: true },
-  { char: "=>", color: "oklch(0.72 0.16 330)", size: 18, weight: 500, left: "85%", top: "15%", animation: "deco-3d-float-1", duration: "15s", delay: "8s", opacity: 0.42, hideOnMobile: true },
-]
+// === 3D floating symbols ===
+// REMOVED for performance: 4 small symbols each used preserve-3d + multi-axis
+// rotation animations. The visual benefit was minimal (they're tiny) but the
+// GPU layer cost was real. The existing 2D floating symbols in
+// AnimatedDecorations cover this aesthetic already.
+const symbols3D: never[] = []
 
 export function AnimatedDecorations3D() {
   return (
@@ -362,7 +300,9 @@ export function AnimatedDecorations3D() {
         </div>
       ))}
 
-      {/* === 3D floating code symbols === */}
+      {/* === 3D floating symbols removed for performance ===
+          The empty symbols3D array means this renders nothing,
+          but we keep the map for easy re-enablement if needed. */}
       {symbols3D.map((s, i) => (
         <div
           key={`sym3d-${i}`}

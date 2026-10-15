@@ -26,36 +26,38 @@ export function AnimatedBackground() {
       {/* Grid pattern */}
       <div className="absolute inset-0 grid-pattern opacity-60 [mask-image:radial-gradient(60rem_60rem_at_50%_30%,black,transparent)]" />
 
-      {/* Floating orbs — 2D drift + subtle scale, no heavy zoom */}
+      {/* Floating orbs — 2D drift + opacity pulse only.
+          PERFORMANCE: removed `scale` from the animation because scaling a
+          blurred element forces the browser to re-rasterize the blur every
+          frame. Animating only x/y + opacity keeps the blur cached on the
+          GPU. Also reduced orb sizes from 28-32rem to 18-24rem to cut the
+          blur computation area by ~40%. */}
       <motion.div
-        className="floating-orb bg-[oklch(0.78_0.13_200)] h-[28rem] w-[28rem] -top-32 -left-32"
-        animate={{
-          x: [0, 40, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.08, 1],
-          opacity: [0.4, 0.55, 0.4],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="floating-orb bg-[oklch(0.82_0.14_75)] h-[32rem] w-[32rem] top-1/3 -right-40"
-        animate={{
-          x: [0, -50, 0],
-          y: [0, 30, 0],
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      />
-      <motion.div
-        className="floating-orb bg-[oklch(0.7_0.14_230)] h-[26rem] w-[26rem] bottom-0 left-1/3"
+        className="floating-orb bg-[oklch(0.78_0.13_200)] h-[20rem] w-[20rem] -top-24 -left-24"
         animate={{
           x: [0, 30, 0],
-          y: [0, -40, 0],
-          scale: [1, 1.07, 1],
+          y: [0, 40, 0],
           opacity: [0.35, 0.5, 0.35],
         }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="floating-orb bg-[oklch(0.82_0.14_75)] h-[24rem] w-[24rem] top-1/3 -right-32"
+        animate={{
+          x: [0, -40, 0],
+          y: [0, 25, 0],
+          opacity: [0.3, 0.45, 0.3],
+        }}
+        transition={{ duration: 28, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      />
+      <motion.div
+        className="floating-orb bg-[oklch(0.7_0.14_230)] h-[18rem] w-[18rem] bottom-0 left-1/3"
+        animate={{
+          x: [0, 25, 0],
+          y: [0, -30, 0],
+          opacity: [0.3, 0.45, 0.3],
+        }}
+        transition={{ duration: 26, repeat: Infinity, ease: "easeInOut", delay: 4 }}
       />
 
       {/* Colorful 3D motion layer — cubes, polyhedrons, parallax orbs, 3D symbols */}

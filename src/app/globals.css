@@ -200,7 +200,17 @@
   .floating-orb {
     position: absolute;
     border-radius: 9999px;
-    filter: blur(80px);
+    /* 40px blur instead of 80px — halves rasterization cost.
+       Modern browsers also auto-promote large blurred divs to a
+       separate GPU layer, so this stays performant even at 500px. */
+    filter: blur(40px);
+    /* GPU-promote the orb so its blur rasterization is cached and
+       only re-rasterized when its content/size actually changes,
+       not on every frame its sibling animations run. */
+    will-change: transform, opacity;
+    /* Backface-visibility hidden hints to the browser to promote
+       the element to its own compositor layer. */
+    backface-visibility: hidden;
     opacity: 0.5;
     pointer-events: none;
   }
@@ -455,14 +465,18 @@
   }
 
   /* 3D decorative element — same as deco-element but with preserve-3d
-     so children (cube faces, polyhedron faces) render in 3D space. */
+     so children (cube faces, polyhedron faces) render in 3D space.
+     NOTE: Removed `will-change: transform, opacity` because every 3D
+     element having will-change forced the browser to GPU-promote each
+     one into its own compositor layer. With 27 elements that was 27
+     extra GPU layers. The browser auto-promotes elements with
+     `transform-style: preserve-3d` anyway, so will-change was redundant. */
   .deco-3d-element {
     position: absolute;
     pointer-events: none;
-    will-change: transform, opacity;
     user-select: none;
     transform-style: preserve-3d;
-    backface-visibility: visible;
+    backface-visibility: hidden;
   }
 
   /* 3D stage — a perspective container that gives its children 3D depth.
