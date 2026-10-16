@@ -207,7 +207,10 @@ export function About() {
                           {item.period}
                         </span>
                         <h4 className="text-base font-semibold">{item.role}</h4>
-                        <p className="text-sm text-accent-foreground/80 mb-2">
+                        {/* Organization name — yellow (amber-400) so it's easier to see.
+                            Only this line is yellow; the period, role, and description
+                            keep their original colors. */}
+                        <p className="text-sm text-amber-400 font-medium mb-2">
                           {item.organization}
                         </p>
                         <p className="text-sm text-muted-foreground leading-relaxed">
