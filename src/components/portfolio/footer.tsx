@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code2, ArrowUp, FileArchive } from "lucide-react"
+import { Code2, ArrowUp } from "lucide-react"
 import { navLinks, profile, socialLinks } from "@/lib/portfolio-data"
 import { SocialIcon } from "./social-icon"
 
@@ -28,15 +28,6 @@ export function Footer() {
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
               Fourth-year Information System student at Injibara University. Building web apps with React/Next.js/Node.js and mobile apps with Flutter.
             </p>
-            {/* Download Source Code button — serves /public/dires-portfolio-source.zip */}
-            <a
-              href="/dires-portfolio-source.zip"
-              download="dires-portfolio-source.zip"
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-2 text-xs font-semibold text-accent hover:border-accent/80 hover:bg-accent/20 transition-all group"
-            >
-              <FileArchive className="h-3.5 w-3.5 transition-transform group-hover:scale-110" />
-              Download Source Code (.zip)
-            </a>
           </div>
 
           {/* Quick links */}
