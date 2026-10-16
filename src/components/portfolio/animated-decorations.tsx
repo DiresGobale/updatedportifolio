@@ -4,18 +4,24 @@
  * AnimatedDecorations — a layer of small, neat, aesthetically-pleasing
  * decorative background elements.
  *
- * PERFORMANCE: reduced from 25 desktop elements to 12 (mobile kept at 7).
- * Only the desktop-only (`hideOnMobile: true`) elements were trimmed —
- * the 7 mobile-visible elements are unchanged so mobile looks identical.
- * The 5 desktop-only elements that remain were chosen for visual balance:
- * they're spread across the viewport (top-left, top-right, bottom-left,
- * bottom-right, middle) so the background doesn't feel sparse.
- *
  * Design ethos (refined):
  *   • SMALL — every element is 14–22px.
  *   • NEAT — uniform sizing within each category, consistent spacing.
  *   • DELICATE — thin font weights (300–500), soft subtle glow.
  *   • AESTHETIC — muted opacity (0.18–0.28), restrained color use.
+ *
+ * Contents:
+ *   • Small butterflies with delicate wing-flap (24×18 SVG)
+ *   • Small floating numbers (14–18px)
+ *   • Small coding symbols — { } [ ] ( ) ; , => fn </> (16–22px)
+ *   • Small arrows → ↗ ↘ ⇄ (16–20px)
+ *
+ * Performance & UX preserved:
+ *   • GPU-friendly CSS animations (transform + opacity only)
+ *   • Honors prefers-reduced-motion
+ *   • Reduced set on mobile (battery/CPU friendly)
+ *   • pointer-events: none — never blocks clicks
+ *   • z-index: 0 in fixed background layer (behind main content)
  */
 
 // === Brand colors (oklch) ===
@@ -45,49 +51,51 @@ type SymbolElement = {
 }
 
 // === Floating coding symbols (small, neat 16–22px) ===
-// Reduced from 12 → 6. Kept the 2 mobile-visible ones (`{` and `;`) and
-// 4 desktop-only ones for balance: `}`, `[ ]`, `=>`, `</>`.
 const symbols: SymbolElement[] = [
-  // Curly braces — thin weight for elegance (mobile-visible + 1 desktop)
+  // Curly braces — thin weight for elegance
   { char: "{", color: "cyan", size: 20, left: "8%", top: "20%", animation: "deco-sway", duration: "14s", delay: "0s", opacity: 0.22, fontWeight: 300, hideOnMobile: false },
   { char: "}", color: "amber", size: 22, left: "85%", top: "35%", animation: "deco-sway", duration: "16s", delay: "3s", opacity: 0.22, fontWeight: 300, hideOnMobile: true },
+  { char: "{}", color: "violet", size: 16, left: "20%", top: "70%", animation: "deco-bob", duration: "8s", delay: "1s", opacity: 0.2, fontWeight: 400, hideOnMobile: true },
+  { char: "{ }", color: "pink", size: 18, left: "75%", top: "78%", animation: "deco-sway", duration: "18s", delay: "5s", opacity: 0.22, fontWeight: 400, hideOnMobile: true },
 
-  // Brackets (desktop-only, top-right area for balance)
+  // Brackets and parens — small and neat
   { char: "[ ]", color: "teal", size: 18, left: "92%", top: "55%", animation: "deco-sway", duration: "15s", delay: "2s", opacity: 0.22, fontWeight: 400, hideOnMobile: true },
+  { char: "( )", color: "cyan", size: 16, left: "5%", top: "60%", animation: "deco-bob", duration: "10s", delay: "4s", opacity: 0.2, fontWeight: 400, hideOnMobile: true },
 
-  // Semicolon (mobile-visible, keeps mobile feel)
+  // Semicolons and commas — small punctuation marks
   { char: ";", color: "amber", size: 22, left: "15%", top: "45%", animation: "deco-bob", duration: "7s", delay: "2.5s", opacity: 0.25, fontWeight: 500, hideOnMobile: false },
+  { char: ",", color: "violet", size: 20, left: "88%", top: "82%", animation: "deco-bob", duration: "9s", delay: "0.5s", opacity: 0.22, fontWeight: 500, hideOnMobile: true },
 
-  // Function symbols (desktop-only, spread for balance)
+  // Function-related symbols — small and refined
   { char: "=>", color: "pink", size: 18, left: "30%", top: "15%", animation: "deco-sway", duration: "12s", delay: "1s", opacity: 0.28, fontWeight: 500, hideOnMobile: true },
+  { char: "fn", color: "cyan", size: 16, left: "60%", top: "8%", animation: "deco-bob", duration: "11s", delay: "3.5s", opacity: 0.25, fontWeight: 600, hideOnMobile: true },
   { char: "</>", color: "amber", size: 16, left: "40%", top: "88%", animation: "deco-sway", duration: "17s", delay: "6s", opacity: 0.22, fontWeight: 500, hideOnMobile: true },
+  { char: "()", color: "teal", size: 18, left: "82%", top: "12%", animation: "deco-bob", duration: "13s", delay: "7s", opacity: 0.22, fontWeight: 500, hideOnMobile: true },
 ]
 
 // === Floating numbers (small 14–18px) ===
-// Reduced from 6 → 3. Kept the 1 mobile-visible one (`1`) and 2 desktop-only
-// ones (`42` top-right, `7` mid-bottom) for visual balance.
 const numbers: SymbolElement[] = [
+  { char: "0", color: "cyan", size: 18, left: "12%", top: "85%", animation: "deco-drift-up", duration: "22s", delay: "0s", opacity: 0.22, driftX: 40, rotate: 360, hideOnMobile: true, fontWeight: 600 },
   { char: "1", color: "amber", size: 20, left: "70%", top: "92%", animation: "deco-drift-up", duration: "26s", delay: "4s", opacity: 0.22, driftX: -50, rotate: 360, hideOnMobile: false, fontWeight: 600 },
+  { char: "01", color: "violet", size: 14, left: "25%", top: "30%", animation: "deco-bob", duration: "9s", delay: "1.5s", opacity: 0.2, hideOnMobile: true, fontWeight: 500 },
   { char: "42", color: "pink", size: 16, left: "85%", top: "25%", animation: "deco-drift-up", duration: "24s", delay: "8s", opacity: 0.22, driftX: 30, rotate: 180, hideOnMobile: true, fontWeight: 600 },
   { char: "7", color: "teal", size: 18, left: "55%", top: "75%", animation: "deco-drift-up", duration: "28s", delay: "12s", opacity: 0.2, driftX: -40, rotate: 360, hideOnMobile: true, fontWeight: 600 },
+  { char: "101", color: "cyan", size: 14, left: "38%", top: "55%", animation: "deco-sway", duration: "14s", delay: "2s", opacity: 0.18, hideOnMobile: true, fontWeight: 500 },
 ]
 
 // === Arrows (small 16–20px) ===
-// Reduced from 4 → 1 (kept only the mobile-visible `→`).
-// Removed the 3 desktop-only arrows since arrows are the least visually
-// distinctive and were the easiest to cut without making the background
-// feel empty.
 const arrows: SymbolElement[] = [
   { char: "→", color: "amber", size: 20, left: "18%", top: "50%", animation: "deco-bob", duration: "8s", delay: "0s", opacity: 0.25, hideOnMobile: false, fontWeight: 400 },
+  { char: "↗", color: "pink", size: 18, left: "65%", top: "65%", animation: "deco-bob", duration: "10s", delay: "3s", opacity: 0.22, hideOnMobile: true, fontWeight: 400 },
+  { char: "↘", color: "violet", size: 18, left: "35%", top: "22%", animation: "deco-sway", duration: "13s", delay: "5s", opacity: 0.22, hideOnMobile: true, fontWeight: 400 },
+  { char: "⇄", color: "teal", size: 16, left: "78%", top: "45%", animation: "deco-rotate", duration: "30s", delay: "1s", opacity: 0.2, hideOnMobile: true, fontWeight: 400 },
 ]
 
 // === Butterflies (small 24×18 SVG, delicate) ===
-// Reduced from 3 → 2. Kept the 1 mobile-visible amber one and 1 desktop-only
-// cyan one. Removed the violet one (it was the lowest-opacity and least
-// noticeable).
 const butterflies = [
   { color: COLORS.cyan, animation: "butterfly-fly-1", duration: "32s", delay: "0s", opacity: 0.32, hideOnMobile: true },
   { color: COLORS.amber, animation: "butterfly-fly-2", duration: "38s", delay: "10s", opacity: 0.3, hideOnMobile: false },
+  { color: COLORS.violet, animation: "butterfly-fly-1", duration: "42s", delay: "20s", opacity: 0.25, hideOnMobile: true },
 ]
 
 // === Butterfly SVG — smaller and more delicate (24×18, was 48×36) ===
