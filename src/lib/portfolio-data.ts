@@ -336,6 +336,18 @@ export const projects: Project[] = [
     github: "https://github.com/dires/product-delivery-system",
     demo: "https://demo.dires.dev/product-delivery",
   },
+  {
+    title: "Course Registration System",
+    description:
+      "A full-stack web application that lets students browse available courses, register for classes, and manage their enrollment — with an admin dashboard for managing course offerings and student records.",
+    longDescription:
+      "Built for academic course enrollment workflows. Students can browse the course catalog, view prerequisites and seat availability, register for classes, and drop courses before deadlines. Includes an admin dashboard for managing course offerings, setting seat limits, viewing enrollment reports, and managing student records. Built with React for the front-end, Node.js/Express for the API, and PostgreSQL for the database.",
+    image:
+      "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80",
+    tags: ["React", "Node.js", "Express", "PostgreSQL", "Education"],
+    github: "https://github.com/dires/course-registration-system",
+    demo: "https://demo.dires.dev/course-registration",
+  },
 ]
 
 // === Testimonials ===
