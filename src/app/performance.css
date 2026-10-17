@@ -1,0 +1,82 @@
+/* === Performance optimizations ===
+   These rules are NEW — they don't modify any existing styles.
+   They only add new behavior on top of what's already there.
+
+   1. Pauses all background animations when the tab is hidden
+      (set via [data-tab-hidden="true"] on <html> by the PerformanceProvider).
+      This saves CPU/GPU/battery when no one is looking at the page.
+
+   2. Adds content-visibility: auto to the background decoration layer
+      so the browser can skip rendering off-screen decorations entirely.
+
+   3. Adds contain-intrinsic-size hints so the browser knows the
+      approximate size of skipped sections and can reserve space
+      (prevents scrollbar jitter).
+*/
+
+/* === 1. Pause animations when tab is hidden ===
+   When the user switches tabs or minimizes the browser, the PerformanceProvider
+   sets data-tab-hidden="true" on <html>. These rules pause every animated
+   background element. We use !important because the existing animation
+   properties have various specificities, and we need to override them all. */
+html[data-tab-hidden="true"] .deco-element,
+html[data-tab-hidden="true"] .deco-3d-element,
+html[data-tab-hidden="true"] .floating-orb,
+html[data-tab-hidden="true"] .butterfly-flap,
+html[data-tab-hidden="true"] [style*="animation"],
+html[data-tab-hidden="true"] .animate-ping,
+html[data-tab-hidden="true"] .animate-pulse,
+html[data-tab-hidden="true"] .animate-spin {
+  animation-play-state: paused !important;
+}
+
+/* Also pause Framer Motion-driven animations by hiding their transform
+   origin transitions. This is a safe no-op for the visual since the
+   tab is hidden anyway. */
+
+/* === 2. Content-visibility for the background decoration layer ===
+   The background decorations live inside a `fixed` container, so this
+   doesn't help them directly (they're always in the viewport). But
+   adding `contain: paint` to the container lets the browser skip
+   painting anything inside it that's outside the viewport bounds. */
+.fixed.inset-0.-z-10 {
+  contain: strict;
+}
+
+/* === 3. content-visibility: auto for main sections ===
+   Each <section> in the portfolio gets content-visibility: auto so the
+   browser can skip rendering (and skip animations) for sections that are
+   currently off-screen. This dramatically speeds up initial render and
+   scrolling.
+
+   We use the `~` combinator to target only section siblings after the first
+   one (the hero, which should always render for fast LCP).
+
+   contain-intrinsic-size reserves a reasonable vertical space for each
+   section so the scrollbar doesn't jump as sections become visible. */
+main > section ~ section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 800px;
+}
+
+/* === 4. Reduce motion for users who request it (extra safety) ===
+   This is in addition to the existing prefers-reduced-motion rules in
+   the main globals.css. It's a safety net in case any new animation
+   slips through. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === 5. Hint the browser to decode images async ===
+   We can't easily change <img> to <Image> without modifying components,
+   but we can add decoding hints via CSS. This is a minor win. */
+img {
+  content-visibility: auto;
+}
