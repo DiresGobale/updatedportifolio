@@ -183,6 +183,8 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Node.js", description: "Event-loop, streams, async programming" },
       { name: "Express.js", description: "Middleware design, REST contracts, error handling" },
+      { name: "C#", description: "Strong-typed, OOP language used for desktop, web, and game dev with Unity" },
+      { name: ".NET Framework", description: "Microsoft's enterprise framework for building scalable Windows + web apps, APIs, and services" },
       { name: "REST API", description: "Endpoints, request validation, status codes" },
     ],
   },
