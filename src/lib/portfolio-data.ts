@@ -364,25 +364,25 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       "Dires delivered our AI-powered employee recommendation system ahead of schedule and was the only student in the cohort who shipped it with real, working AI integration. Rare combination of curiosity and execution.",
-    name: "Dr. Abebe Bekele",
-    title: "Assistant Professor, Information Systems",
-    organization: "Injibara University",
+    name: "Dr. Abebe ",
+    title: "Assistant Professor, Software Engineering",
+    organization: "Gondar University",
     avatar: "AB",
     accentColor: "cyan",
   },
   {
     quote:
       "I worked with Dires on the Evaluation Management System. He owned the whole stack — schema, API, UI — and shipped something we actually use with students. Clean code, communicative, and ships on time.",
-    name: "Hanan Tesfaye",
-    title: "Project Teammate & IS Student",
+    name: "Zewtor",
+    title: "Project Teammate & software Student",
     organization: "Injibara University",
     avatar: "HT",
     accentColor: "amber",
   },
   {
     quote:
-      "Dires designed our Expense Tracker in Figma first, then built it in Flutter in two weeks. The attention to small UX details — empty states, micro-interactions, accessibility — is unusual for a student.",
-    name: "Yonas Girma",
+      "Dires designed our Expense Tracker in Figma first, then built it in Flutter in two weeks. The attention to small UX details  empty states, micro-interactions, accessibility — is unusual for a student.",
+    name: "Zewtor",
     title: "Mobile Developer (Freelance Collaborator)",
     organization: "Independent",
     avatar: "YG",
@@ -392,7 +392,7 @@ export const testimonials: Testimonial[] = [
 
 export const contactInfo = {
   email: "dires7481@gmail.com",
-  phone: "+251 9XX XXX XXX",
+  phone: "+251 995 774 866",
   location: "Injibara, Ethiopia — Remote-friendly",
   socials: socialLinks,
 }
