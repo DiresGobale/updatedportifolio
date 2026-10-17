@@ -324,6 +324,18 @@ export const projects: Project[] = [
     github: "https://github.com/dires/library-management-docs",
     demo: "https://demo.dires.dev/library-docs",
   },
+  {
+    title: "Product Delivery System",
+    description:
+      "A full-stack web application for managing product deliveries — order tracking, dispatch management, delivery agent assignment, and real-time status updates.",
+    longDescription:
+      "Built in 2025, this system handles the end-to-end product delivery workflow: order creation, dispatch scheduling, delivery agent assignment, route tracking, and real-time status updates. Features a customer-facing order tracking page, an admin dashboard for dispatchers, and a mobile-friendly view for delivery agents. Uses React for the front-end, Node.js/Express for the API, and PostgreSQL for order/delivery data.",
+    image:
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+    tags: ["React", "Node.js", "Express", "PostgreSQL", "Delivery"],
+    github: "https://github.com/dires/product-delivery-system",
+    demo: "https://demo.dires.dev/product-delivery",
+  },
 ]
 
 // === Testimonials ===
