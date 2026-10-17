@@ -144,18 +144,7 @@ export function HeroPhoto({ src, alt, className }: HeroPhotoProps) {
         {/* On mobile, badges sit just inside the photo's outer edge (not outside)
             so they never cause horizontal scroll. On >=sm screens, they pop
             outside the ring for a more dynamic look. */}
-        <motion.div
-          aria-hidden
-          animate={isReducedMotion ? {} : { y: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-2 right-2 sm:top-0 sm:right-0 md:-top-4 md:-right-4 glass-card rounded-2xl px-2.5 py-1.5 sm:px-4 sm:py-3 shadow-lg"
-          style={{ zIndex: 5 }}
-        >
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse shrink-0" />
-            <span className="text-[10px] sm:text-sm font-semibold whitespace-nowrap">Open to work</span>
-          </div>
-        </motion.div>
+        {/* "Open to work" badge removed per user request */}
 
         <motion.div
           aria-hidden

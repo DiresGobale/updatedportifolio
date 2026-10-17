@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { SocialIcon } from "./social-icon"
 import { TypewriterEffect } from "./typewriter-effect"
 import { HeroPhoto } from "./hero-photo"
-import { fadeInUp, fadeInDown, scaleIn } from "./motion"
+import { fadeInUp, scaleIn } from "./motion"
 
 export function Hero() {
   const scrollTo = (href: string) => {
@@ -28,19 +28,6 @@ export function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 sm:gap-10 lg:gap-16 items-center">
           {/* === Text content === */}
           <div className="text-center md:text-left order-1">
-            <motion.div
-              variants={fadeInDown}
-              initial="hidden"
-              animate="visible"
-              className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-accent-foreground"
-            >
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-              </span>
-              {profile.available ? "Available for new projects" : "Currently booked"}
-            </motion.div>
-
             <motion.h1
               variants={fadeInUp}
               initial="hidden"

@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Code2 } from "lucide-react"
 import { navLinks, profile } from "@/lib/portfolio-data"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -119,16 +118,7 @@ export function Navbar() {
             })}
           </ul>
 
-          {/* CTA on desktop */}
-          <div className="hidden md:block">
-            <Button
-              onClick={() => handleNavClick("#contact")}
-              size="sm"
-              className="bg-gradient-brand text-primary-foreground hover:opacity-90 shadow-md shadow-brand-glow/20 border-0"
-            >
-              Let&apos;s talk
-            </Button>
-          </div>
+          {/* CTA on desktop — removed per user request */}
 
           {/* Mobile toggle */}
           <button
@@ -183,14 +173,6 @@ export function Navbar() {
                     </motion.li>
                   )
                 })}
-                <li className="pt-2">
-                  <Button
-                    onClick={() => handleNavClick("#contact")}
-                    className="w-full bg-gradient-brand text-primary-foreground border-0"
-                  >
-                    Let&apos;s talk
-                  </Button>
-                </li>
               </ul>
             </motion.div>
           )}

@@ -186,8 +186,7 @@ export function Contact() {
                     opacity instead of text-accent-foreground/90) to improve readability.
                     Only this sentence changed — all other text/colors/layout untouched. */}
                 <p className="text-sm text-foreground font-medium leading-relaxed">
-                  <span className="font-semibold">Currently:</span> Open to internships
-                  and junior full-stack or Flutter roles. Also available for freelance
+                  <span className="font-semibold">Currently:</span> and junior full-stack or Flutter roles. Also available for freelance
                   coursework-style projects. Average response time &lt; 24h.
                 </p>
               </div>
