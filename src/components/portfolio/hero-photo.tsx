@@ -144,7 +144,7 @@ export function HeroPhoto({ src, alt, className }: HeroPhotoProps) {
         {/* On mobile, badges sit just inside the photo's outer edge (not outside)
             so they never cause horizontal scroll. On >=sm screens, they pop
             outside the ring for a more dynamic look. */}
-        {/* "Open to work" badge removed per user request */}
+        {/* Top-right badge removed per user request */}
 
         <motion.div
           aria-hidden
