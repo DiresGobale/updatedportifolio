@@ -99,7 +99,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8"
+      className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-7xl">
         <SectionHeading

@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Mail, Download } from "lucide-react"
+import { ArrowRight, Mail } from "lucide-react"
 import { profile, socialLinks } from "@/lib/portfolio-data"
 import { Button } from "@/components/ui/button"
 import { SocialIcon } from "./social-icon"
@@ -78,18 +78,6 @@ export function Hero() {
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Me
               </Button>
-              {/* Resume download button — links to /resume.pdf in /public.
-                  Uses an anchor (not a button) so the browser downloads it
-                  instead of navigating. download attribute triggers the
-                  file download with a sensible filename. */}
-              <a
-                href={profile.resumeUrl}
-                download="Dires-CV.pdf"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-6 py-3 text-sm font-semibold text-accent hover:border-accent/80 hover:bg-accent/20 transition-all group"
-              >
-                <Download className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-                Download CV
-              </a>
             </motion.div>
 
             {/* Social icons — reduced top margin on mobile for tighter rhythm */}

@@ -173,7 +173,7 @@ export function GitHubStatsWidget({ username }: GitHubStatsWidgetProps) {
   return (
     <section
       id="github"
-      className="relative py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-x-hidden"
+      className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-x-hidden"
     >
       <div className="mx-auto max-w-7xl">
         <SectionHeading
@@ -187,7 +187,7 @@ export function GitHubStatsWidget({ username }: GitHubStatsWidgetProps) {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-12 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-8 items-stretch"
+          className="mt-8 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-8 items-stretch"
         >
           {/* === Left: stat cards + languages bar === */}
           <motion.div

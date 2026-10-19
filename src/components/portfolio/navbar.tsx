@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Code2 } from "lucide-react"
+import { Menu, X, Code2, Download } from "lucide-react"
 import { navLinks, profile } from "@/lib/portfolio-data"
 import { cn } from "@/lib/utils"
 
@@ -118,7 +118,17 @@ export function Navbar() {
             })}
           </ul>
 
-          {/* CTA on desktop — removed per user request */}
+          {/* CTA on desktop — Download CV button (right side of navbar) */}
+          <div className="hidden md:block">
+            <a
+              href={profile.resumeUrl}
+              download="Dires-CV.pdf"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-brand text-primary-foreground px-4 py-2 text-xs font-semibold shadow-md shadow-brand-glow/20 hover:opacity-90 transition-opacity group"
+            >
+              <Download className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
+              Download CV
+            </a>
+          </div>
 
           {/* Mobile toggle */}
           <button
