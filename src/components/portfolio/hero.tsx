@@ -17,7 +17,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-20 sm:pt-24 pb-20 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-x-hidden"
+      className="relative min-h-screen flex items-center pt-20 sm:pt-24 pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8 overflow-x-hidden"
     >
       <div className="mx-auto max-w-7xl w-full">
         {/* Grid: single column on mobile (text first, photo second),
@@ -123,23 +123,6 @@ export function Hero() {
             />
           </motion.div>
         </div>
-
-        {/* Scroll cue (desktop only) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="hidden lg:flex flex-col items-center justify-center mt-16 text-muted-foreground"
-        >
-          <span className="text-xs uppercase tracking-widest mb-2">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="h-10 w-6 rounded-full border-2 border-muted-foreground/40 flex items-start justify-center p-1"
-          >
-            <span className="h-2 w-1 rounded-full bg-accent" />
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   )
