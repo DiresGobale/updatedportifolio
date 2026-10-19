@@ -59,7 +59,7 @@ export function Testimonials() {
             const accent = ACCENT[t.accentColor] ?? ACCENT.cyan
             return (
               <motion.article
-                key={t.name}
+                key={`${t.name}-${i}`}
                 variants={slideUp}
                 whileHover={{ y: -6 }}
                 transition={{ type: "spring", stiffness: 300, damping: 22 }}
