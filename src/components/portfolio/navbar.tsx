@@ -130,15 +130,26 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden p-2 rounded-lg text-foreground hover:bg-secondary/60 transition-colors"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          {/* Mobile toggle + Download CV button — visible on small screens only */}
+          <div className="flex md:hidden items-center gap-2">
+            {/* Download CV — compact icon-only button on mobile */}
+            <a
+              href={profile.resumeUrl}
+              download="Dires-Gobale-CV.pdf"
+              aria-label="Download CV"
+              className="inline-flex items-center justify-center rounded-full bg-gradient-brand text-primary-foreground p-2 shadow-md shadow-brand-glow/20 hover:opacity-90 transition-opacity"
+            >
+              <Download className="h-4 w-4" />
+            </a>
+            <button
+              className="p-2 rounded-lg text-foreground hover:bg-secondary/60 transition-colors"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+            >
+              {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu */}
