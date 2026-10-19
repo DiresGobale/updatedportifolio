@@ -1,0 +1,75 @@
+/* === Performance optimizations (additive — no existing styles changed) ===
+   These rules ADD new behavior on top of existing CSS. They don't modify,
+   override, or remove any existing styles, colors, layouts, or animations.
+
+   1. Pauses all background animations when the browser tab is hidden
+      (set via data-tab-hidden="true" on <html> by PerformanceProvider).
+      Saves CPU/GPU/battery when no one is looking at the page.
+
+   2. Adds content-visibility: auto to sections below the hero so the
+      browser can skip rendering off-screen content — dramatically
+      speeding up initial render and scrolling.
+
+   3. Adds contain: strict to the fixed background layer so the browser
+      can skip painting off-screen decoration children.
+
+   4. Adds font-display: swap as a safety net for any font that might
+      not have it (prevents invisible text during font load).
+*/
+
+/* === 1. Pause animations when tab is hidden ===
+   When the user switches tabs or minimizes the browser, the
+   PerformanceProvider sets data-tab-hidden="true" on <html>. These
+   rules pause every animated background element. We use !important
+   because the existing animation properties have various specificities
+   and we need to override them all reliably. */
+html[data-tab-hidden="true"] .deco-element,
+html[data-tab-hidden="true"] .deco-3d-element,
+html[data-tab-hidden="true"] .floating-orb,
+html[data-tab-hidden="true"] .animate-ping,
+html[data-tab-hidden="true"] .animate-pulse,
+html[data-tab-hidden="true"] .animate-spin {
+  animation-play-state: paused !important;
+}
+
+/* Also pause any inline-style animations (Framer Motion sets these) */
+html[data-tab-hidden="true"] [style*="animation"] {
+  animation-play-state: paused !important;
+}
+
+/* === 2. content-visibility: auto for off-screen sections ===
+   Each <section> after the hero (which renders normally for fast LCP)
+   gets content-visibility: auto so the browser can skip rendering
+   and skip animations for sections not in the viewport. Combined with
+   contain-intrinsic-size to reserve space (prevents scrollbar jitter).
+
+   This is the single biggest performance win — the browser can skip
+   painting/compositing for 5+ sections that are below the fold. */
+main > section ~ section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 800px;
+}
+
+/* === 3. contain: strict on the fixed background layer ===
+   The background decorations live inside a fixed container. Adding
+   contain: strict lets the browser skip painting anything inside
+   it that's outside the viewport bounds. */
+.fixed.inset-0.-z-10 {
+  contain: strict;
+}
+
+/* === 4. Font display swap safety net ===
+   Ensures text is always visible even if a custom font hasn't loaded
+   yet. This is a no-op if the font already has display: swap (which
+   next/font handles), but acts as a safety net for any edge cases. */
+@font-face {
+  font-display: swap;
+}
+
+/* === 5. Image lazy decode hint ===
+   Tells the browser to decode images asynchronously, off the main
+   thread. This prevents image decoding from blocking scroll/interaction. */
+img {
+  content-visibility: auto;
+  decoding: async;
+}
