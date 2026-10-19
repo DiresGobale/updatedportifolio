@@ -122,7 +122,7 @@ export function Navbar() {
           <div className="hidden md:block">
             <a
               href={profile.resumeUrl}
-              download="Dires-CV.pdf"
+              download="Dires-Gobale-CV.pdf"
               className="inline-flex items-center gap-2 rounded-full bg-gradient-brand text-primary-foreground px-4 py-2 text-xs font-semibold shadow-md shadow-brand-glow/20 hover:opacity-90 transition-opacity group"
             >
               <Download className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
