@@ -294,7 +294,7 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
     tags: ["React", "Node.js", "Express", "PostgreSQL", "AI"],
-    github: "https://github.com/dires/ai-employee-recommendation",
+    github: "https://github.com/DiresGobale/ai-employee-recommendation",
     demo: "/projects/ai-employee-recommendation",
     featured: true,
   },
@@ -316,7 +316,7 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=1200&q=80",
     tags: ["Flutter", "Dart", "SQLite", "Mobile"],
-    github: "https://github.com/dires/expense-tracker-flutter",
+    github: "https://github.com/DiresGobale/expense-tracker-flutter",
     demo: "/projects/expense-tracker",
     featured: true,
   },
@@ -338,7 +338,7 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     tags: ["React", "Node.js", "Express", "PostgreSQL"],
-    github: "https://github.com/dires/evaluation-management",
+    github: "https://github.com/DiresGobale/evaluation-management",
     demo: "/projects/evaluation-management",
   },
   {
@@ -359,7 +359,7 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80",
     tags: ["MySQL", "ER Diagrams", "Normalization", "Documentation"],
-    github: "https://github.com/dires/library-management-docs",
+    github: "https://github.com/DiresGobale/library-management-docs",
     demo: "/projects/library-management",
   },
   {
@@ -380,7 +380,7 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
     tags: ["React", "Node.js", "Express", "PostgreSQL", "Delivery"],
-    github: "https://github.com/dires/product-delivery-system",
+    github: "https://github.com/DiresGobale/product-delivery-system",
     demo: "/projects/product-delivery-system",
   },
   {
@@ -401,7 +401,7 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80",
     tags: ["React", "Node.js", "Express", "PostgreSQL", "Education"],
-    github: "https://github.com/dires/course-registration-system",
+    github: "https://github.com/DiresGobale/course-registration-system",
     demo: "/projects/course-registration-system",
   },
 ]
