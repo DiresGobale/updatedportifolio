@@ -50,6 +50,21 @@ export interface ExperienceItem {
   description: string
 }
 
+// === Tech Progress (Language/Technology proficiency bars) ===
+export interface TechProgress {
+  name: string
+  level: number // 0-100
+  color: string
+}
+
+export const techProgress: TechProgress[] = [
+  { name: "TypeScript", level: 80, color: "#3178c6" },
+  { name: "Next.js", level: 60, color: "#06b6d4" },
+  { name: "Express", level: 90, color: "#22c55e" },
+  { name: "Node.js", level: 95, color: "#84cc16" },
+  { name: "React", level: 90, color: "#06b6d4" },
+]
+
 export const profile = {
   name: "Dires",
   firstName: "Dires",

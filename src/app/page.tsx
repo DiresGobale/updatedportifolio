@@ -6,6 +6,7 @@ import { ParticleNetwork } from "@/components/portfolio/particle-network"
 import { Hero } from "@/components/portfolio/hero"
 import { About } from "@/components/portfolio/about"
 import { Skills } from "@/components/portfolio/skills"
+import { TechProgressSection } from "@/components/portfolio/tech-progress"
 import { Services } from "@/components/portfolio/services"
 import { Projects } from "@/components/portfolio/projects"
 import { GitHubStatsWidget } from "@/components/portfolio/github-stats"
@@ -25,6 +26,7 @@ export default function Home() {
         <Hero />
         <About />
         <Skills />
+        <TechProgressSection />
         <Services />
         <Projects />
         {/* Live GitHub stats — pulled from the public GitHub API */}
