@@ -39,13 +39,13 @@ export function Hero() {
               <span className="block text-gradient text-5xl sm:text-6xl lg:text-7xl xl:text-8xl my-1 leading-tight">
                 {profile.firstName}
               </span>
-              <span className="block text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mt-1 mb-1 leading-tight"
+              <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold my-1 leading-tight"
                 style={{
-                  background: "linear-gradient(135deg, #f59e0b, #ef4444, #ec4899)",
+                  background: "linear-gradient(135deg, #a855f7, #6366f1, #3b82f6)",
                   WebkitBackgroundClip: "text",
                   backgroundClip: "text",
                   WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 0 12px rgba(245, 158, 11, 0.3))",
+                  filter: "drop-shadow(0 0 16px rgba(168, 85, 247, 0.4))",
                 }}
               >
                 Gobale
