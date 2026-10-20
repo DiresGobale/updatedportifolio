@@ -2,6 +2,7 @@
 
 import { Navbar } from "@/components/portfolio/navbar"
 import { AnimatedBackground } from "@/components/portfolio/animated-background"
+import { ParticleNetwork } from "@/components/portfolio/particle-network"
 import { Hero } from "@/components/portfolio/hero"
 import { About } from "@/components/portfolio/about"
 import { Skills } from "@/components/portfolio/skills"
@@ -16,6 +17,8 @@ import { Chatbot } from "@/components/portfolio/chatbot"
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col overflow-x-hidden">
+      {/* 3D Interactive Particle Network — colorful particles + neon connections + mouse glow ring */}
+      <ParticleNetwork />
       <AnimatedBackground />
       <Navbar />
       <main className="flex-1 overflow-x-hidden">
