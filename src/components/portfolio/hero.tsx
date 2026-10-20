@@ -35,20 +35,21 @@ export function Hero() {
               transition={{ delay: 0.1 }}
               className="mt-5 sm:mt-6 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight"
             >
-              <span className="block tracking-wide">Hi, I am</span>
-              <span className="block text-gradient text-5xl sm:text-6xl lg:text-7xl xl:text-8xl my-1 leading-tight tracking-tight"
-                style={{ letterSpacing: "-0.02em" }}
+              <span className="block tracking-[0.3em] uppercase text-sm sm:text-base font-medium text-muted-foreground">Hi, I am</span>
+              <span className="block text-gradient text-5xl sm:text-6xl lg:text-7xl xl:text-8xl my-2 leading-tight"
+                style={{ letterSpacing: "-0.03em", fontWeight: 800 }}
               >
                 {profile.firstName}
               </span>
-              <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold my-1 leading-tight"
+              <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold my-2 leading-tight"
                 style={{
                   background: "linear-gradient(135deg, #a855f7, #6366f1, #3b82f6)",
                   WebkitBackgroundClip: "text",
                   backgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   filter: "drop-shadow(0 0 16px rgba(168, 85, 247, 0.4))",
-                  letterSpacing: "0.15em",
+                  letterSpacing: "0.2em",
+                  fontWeight: 800,
                 }}
               >
                 G&nbsp;·&nbsp;o&nbsp;·&nbsp;b&nbsp;·&nbsp;a&nbsp;·&nbsp;l&nbsp;·&nbsp;e
