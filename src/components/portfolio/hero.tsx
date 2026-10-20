@@ -41,18 +41,50 @@ export function Hero() {
               >
                 {profile.firstName}
               </span>
-              <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold my-2 leading-tight"
+              <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold my-2 leading-tight flex justify-center md:justify-start"
                 style={{
-                  background: "linear-gradient(135deg, #a855f7, #6366f1, #3b82f6)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 0 16px rgba(168, 85, 247, 0.4))",
                   letterSpacing: "-0.03em",
                   fontWeight: 800,
                 }}
               >
-                Gobale
+                {["G", "o", "b", "a", "l", "e"].map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{
+                      opacity: 0,
+                      x: [120, -80, 60, -40, 0][i] ?? 0,
+                      y: [-100, 80, -60, 100, -80, 60][i] ?? 0,
+                      rotate: [180, -180, 90, -90, 360, -360][i] ?? 0,
+                      scale: 0.3,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                      y: 0,
+                      rotate: 0,
+                      scale: 1,
+                    }}
+                    transition={{
+                      delay: 0.8 + i * 0.15,
+                      duration: 0.8,
+                      ease: [0.22, 1, 0.36, 1],
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 12,
+                    }}
+                    style={{
+                      background: "linear-gradient(135deg, #a855f7, #6366f1, #3b82f6)",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      filter: "drop-shadow(0 0 16px rgba(168, 85, 247, 0.4))",
+                      display: "inline-block",
+                      transformOrigin: "center",
+                    }}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
               </span>
               <span className="block text-lg sm:text-2xl lg:text-3xl xl:text-4xl mt-2 text-foreground/85 min-h-[1.5em] sm:min-h-[1.4em]">
                 <TypewriterEffect words={profile.roles} />
