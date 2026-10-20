@@ -65,7 +65,7 @@ export function ParticleNetwork() {
     // === Setup canvas size with device pixel ratio ===
     let width = 0
     let height = 0
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
+    const dpr = Math.min(window.devicePixelRatio || 1, 1)
 
     function resize() {
       width = window.innerWidth
@@ -79,9 +79,9 @@ export function ParticleNetwork() {
     resize()
     window.addEventListener("resize", resize)
 
-    // === Create particles (count scales with viewport) ===
-    const baseCount = Math.min(60, Math.floor((width * height) / 18000))
-    const particleCount = Math.max(20, Math.min(baseCount, 80))
+    // === Create particles (reduced count for performance) ===
+    const baseCount = Math.min(30, Math.floor((width * height) / 35000))
+    const particleCount = Math.max(15, Math.min(baseCount, 40))
 
     const initParticle = (p: Particle) => {
       p.x = Math.random() * width
@@ -144,7 +144,7 @@ export function ParticleNetwork() {
 
     // === Animation loop with frame limiting (~30fps) ===
     let lastTime = 0
-    const frameInterval = 1000 / 30 // ~30fps cap
+    const frameInterval = 1000 / 24 // ~24fps cap for performance
 
     function animate(time: number) {
       rafRef.current = requestAnimationFrame(animate)
@@ -221,8 +221,8 @@ export function ParticleNetwork() {
           const dy = p1.y - p2.y
           const dist = Math.sqrt(dx * dx + dy * dy)
 
-          if (dist < 120) {
-            const opacity = (1 - dist / 120) * 0.25
+          if (dist < 100) {
+            const opacity = (1 - dist / 100) * 0.2
             const c1 = NEON_COLORS[p1.colorIndex]
             const c2 = NEON_COLORS[p2.colorIndex]
             // Blend the two colors for the line

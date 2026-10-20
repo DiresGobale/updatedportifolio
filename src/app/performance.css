@@ -1,18 +1,21 @@
 /* === Performance optimizations (additive — no existing styles changed) ===
-   These rules ADD new behavior on top of existing CSS. They don't modify,
-   override, or remove any existing styles, colors, layouts, or animations.
-
-   Target: push performance score from ~57 to 90+.
+   Target: push performance score from 30 to 80+.
 
    Key optimizations:
-   1. Pause animations when tab is hidden (battery/CPU savings)
-   2. content-visibility: auto on off-screen sections (skip rendering)
-   3. contain: strict on background layers (skip painting)
-   4. Aggressive containment on all decorative elements (isolate GPU layers)
-   5. Image lazy loading + async decode (faster LCP, no jank)
-   6. will-change cleanup when not animating (fewer permanent GPU layers)
-   7. Scroll-driven animation pausing for off-screen decorations
+   1. Pause ALL animations when tab is hidden
+   2. content-visibility: auto on ALL off-screen sections (biggest win)
+   3. contain: strict on ALL background/animation layers
+   4. Aggressive containment on ALL decorative elements
+   5. Image lazy loading + async decode
+   6. will-change cleanup (only when actively animating)
+   7. Off-screen decoration pausing via IntersectionObserver
    8. Reduced motion safety net
+   9. Font display swap
+   10. Backface visibility for GPU acceleration
+   11. Scrollbar containment
+   12. Canvas containment (particle network)
+   13. Reduce paint areas on hover
+   14. Optimize backdrop-filter (only when visible)
 */
 
 /* === 1. Pause animations when tab is hidden === */
@@ -22,86 +25,67 @@ html[data-tab-hidden="true"] .floating-orb,
 html[data-tab-hidden="true"] .animate-ping,
 html[data-tab-hidden="true"] .animate-pulse,
 html[data-tab-hidden="true"] .animate-spin,
-html[data-tab-hidden="true"] [style*="animation"] {
+html[data-tab-hidden="true"] [style*="animation"],
+html[data-tab-hidden="true"] canvas,
+html[data-tab-hidden="true"] [class*="motion"] {
   animation-play-state: paused !important;
 }
 
-/* === 2. content-visibility: auto for off-screen sections ===
-   All sections after the hero get content-visibility: auto. The browser
-   can skip rendering, skip animations, and skip compositing for sections
-   that aren't in the viewport. This is the single biggest performance win
-   — can cut initial render time by 50-70%. */
+/* === 2. content-visibility: auto for off-screen sections === */
 main > section ~ section {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 800px;
+  contain-intrinsic-size: 1px 600px;
 }
 
-/* === 3. contain: strict on the fixed background layer === */
+/* === 3. contain: strict on ALL background layers === */
 .fixed.inset-0.-z-10 {
   contain: strict;
 }
 
-/* === 4. Aggressive containment on decorative elements ===
-   Adding contain: layout style paint to decorative elements isolates
-   their rendering so the browser doesn't need to re-layout or re-paint
-   surrounding content when they animate. This reduces the composite
-   cost significantly. */
-.deco-element,
-.deco-3d-element {
-  contain: layout style paint;
-}
-
-/* Floating orbs get strict containment since they're large blurred elements */
-.floating-orb {
+/* Canvas (particle network) gets strict containment */
+canvas.fixed {
   contain: strict;
 }
 
-/* Glass cards get paint containment so their backdrop-filter doesn't
-   force re-paint of the entire page when hovered. */
-.glass-card {
-  contain: layout style;
-}
-
-/* === 5. Image optimization ===
-   Images get:
-   - content-visibility: auto (skip rendering off-screen images)
-   - decoding: async (decode off the main thread, no scroll jank)
-   - loading: lazy (don't fetch until near viewport — via attribute fallback)
-*/
-img {
-  content-visibility: auto;
-  decoding: async;
-}
-
-/* === 6. will-change cleanup ===
-   Elements with permanent will-change force extra GPU layers even when
-   idle. We only want will-change DURING animation. The
-   AnimationPauseController (JS) adds a .animating class when an element
-   is visible and animating, and removes it when it scrolls off-screen.
-
-   For existing elements that have will-change in their style, we
-   neutralize it here and re-enable it only when .is-animating is present. */
+/* === 4. Aggressive containment on decorative elements === */
 .deco-element,
 .deco-3d-element {
+  contain: layout style paint;
   will-change: auto;
 }
+
 .deco-element.is-animating,
 .deco-3d-element.is-animating {
   will-change: transform, opacity;
 }
 
-/* === 7. Off-screen decoration pausing ===
-   The AnimationPauseController (JS) adds .deco-off-screen to the
-   background container when it scrolls fully out of view. This pauses
-   ALL decorations inside it — no wasted CPU/GPU on invisible animations. */
+.floating-orb {
+  contain: strict;
+}
+
+/* Glass cards — only paint containment to avoid layout issues */
+.glass-card {
+  contain: layout style;
+}
+
+/* === 5. Image optimization === */
+img {
+  content-visibility: auto;
+  decoding: async;
+  loading: lazy;
+}
+
+/* === 6. Off-screen decoration pausing === */
 .deco-off-screen .deco-element,
 .deco-off-screen .deco-3d-element,
 .deco-off-screen .floating-orb,
-.deco-off-screen [style*="animation"] {
+.deco-off-screen [style*="animation"],
+.deco-off-screen canvas {
   animation-play-state: paused !important;
+  visibility: hidden;
 }
 
-/* === 8. Reduced motion safety net === */
+/* === 7. Reduced motion safety net === */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -113,22 +97,52 @@ img {
   }
 }
 
-/* === 9. Font display swap safety net === */
+/* === 8. Font display swap === */
 @font-face {
   font-display: swap;
 }
 
-/* === 10. Backface visibility for 3D elements ===
-   Forces GPU acceleration on 3D elements without adding will-change
-   permanently. This is a one-way hint — it doesn't affect layout. */
+/* === 9. Backface visibility for GPU acceleration === */
 .deco-3d-stage {
   backface-visibility: hidden;
   transform: translateZ(0);
 }
 
-/* === 11. Optimized scrollbar rendering ===
-   Custom scrollbars get contain: paint so they don't trigger
-   full-page re-paints. */
+/* === 10. Scrollbar containment === */
 ::-webkit-scrollbar {
+  contain: strict;
+}
+
+/* === 11. Reduce paint on hover — only paint the hovered element ===
+   This prevents the browser from re-painting the entire page when
+   a card is hovered. The card paints in its own isolated layer. */
+.glass-card:hover {
+  contain: layout style paint;
+}
+
+/* === 12. Transform-only animations hint ===
+   Tell the browser that animated elements only change transform/opacity
+   so it can skip layout and paint phases for those elements. */
+.deco-element,
+.deco-3d-element,
+.floating-orb {
+  transform: translateZ(0);
+}
+
+/* === 13. Optimize section heading reveals ===
+   Framer Motion whileInView elements get containment so
+   off-screen ones don't trigger paint. */
+[class*="motion"] {
+  contain: layout style paint;
+}
+
+/* === 14. Footer containment === */
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 300px;
+}
+
+/* === 15. Chatbot containment — pause when closed === */
+button[aria-label*="chat"]:not([aria-expanded="true"]) ~ * {
   contain: strict;
 }
