@@ -3,13 +3,32 @@
 import { use } from "react"
 import { notFound } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowLeft, Github, ExternalLink, Check, Star, Code2 } from "lucide-react"
+import { ArrowLeft, Github, ExternalLink, Check, Star, Code2, MonitorPlay } from "lucide-react"
 import { projects, profile } from "@/lib/portfolio-data"
 import { Navbar } from "@/components/portfolio/navbar"
 import { AnimatedBackground } from "@/components/portfolio/animated-background"
+import { ParticleNetwork } from "@/components/portfolio/particle-network"
 import { Footer } from "@/components/portfolio/footer"
 import { Badge } from "@/components/ui/badge"
 import { fadeInUp, staggerContainer, slideUp, viewportOnce } from "@/components/portfolio/motion"
+import {
+  AIRecommendationDemo,
+  ExpenseTrackerDemo,
+  ProductDeliveryDemo,
+  CourseRegistrationDemo,
+  EvaluationDemo,
+  LibraryDemo,
+} from "@/components/portfolio/project-demos"
+
+// Map project slugs to their interactive demo components
+const demoMap: Record<string, React.ComponentType> = {
+  "ai-employee-recommendation": AIRecommendationDemo,
+  "expense-tracker": ExpenseTrackerDemo,
+  "product-delivery-system": ProductDeliveryDemo,
+  "course-registration-system": CourseRegistrationDemo,
+  "evaluation-management": EvaluationDemo,
+  "library-management": LibraryDemo,
+}
 
 export default function ProjectDemoPage({
   params,
@@ -23,33 +42,34 @@ export default function ProjectDemoPage({
     notFound()
   }
 
+  const DemoComponent = demoMap[slug]
+
   return (
     <div className="relative min-h-screen flex flex-col overflow-x-hidden">
+      <ParticleNetwork />
       <AnimatedBackground />
       <Navbar />
       <main className="flex-1 overflow-x-hidden">
-        {/* === Hero section with project image === */}
-        <section className="relative pt-28 sm:pt-32 pb-8 px-4 sm:px-6 lg:px-8">
+        {/* === Header === */}
+        <section className="relative pt-28 sm:pt-32 pb-4 px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
-            {/* Back link */}
             <motion.a
               href="/#projects"
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors mb-6"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors mb-4"
             >
               <ArrowLeft className="h-4 w-4" />
               Back to Projects
             </motion.a>
 
-            {/* Featured badge */}
             {project.featured && (
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-4"
+                className="mb-3"
               >
                 <Badge className="bg-gradient-brand-warm text-primary-foreground border-0 gap-1">
                   <Star className="h-3.5 w-3.5 fill-current" />
@@ -58,7 +78,6 @@ export default function ProjectDemoPage({
               </motion.div>
             )}
 
-            {/* Title */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -68,7 +87,6 @@ export default function ProjectDemoPage({
               {project.title}
             </motion.h1>
 
-            {/* Tags */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -85,29 +103,41 @@ export default function ProjectDemoPage({
                 </span>
               ))}
             </motion.div>
-
-            {/* Project image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative aspect-[16/9] rounded-3xl overflow-hidden glass-card ring-1 ring-accent/20"
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-            </motion.div>
           </div>
         </section>
 
-        {/* === Details section === */}
+        {/* === Interactive Live Demo === */}
+        {DemoComponent && (
+          <section className="relative py-4 px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-5xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="mb-6"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <MonitorPlay className="h-6 w-6 text-accent" />
+                  <h2 className="text-xl font-semibold">Interactive Live Demo</h2>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Try it right now — this is a working interactive demo of the {project.title}.
+                  Click, type, and explore the features below.
+                </p>
+              </motion.div>
+
+              {/* The actual interactive demo */}
+              <div className="glass-card rounded-3xl p-5 sm:p-8">
+                <DemoComponent />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* === Project Details === */}
         <section className="relative py-8 px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
-              {/* Left: Description + Features */}
               <motion.div
                 variants={fadeInUp}
                 initial="hidden"
@@ -145,13 +175,12 @@ export default function ProjectDemoPage({
                 </motion.ul>
               </motion.div>
 
-              {/* Right: Links card */}
               <motion.div
                 variants={fadeInUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewportOnce}
-                className="glass-card rounded-3xl p-6 h-fit sticky top-24"
+                className="glass-card rounded-3xl p-6 h-fit lg:sticky lg:top-24"
               >
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
                   Project Links
@@ -198,43 +227,6 @@ export default function ProjectDemoPage({
                 </a>
               </motion.div>
             </div>
-          </div>
-        </section>
-
-        {/* === Demo preview section === */}
-        <section className="relative py-8 px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl">
-            <motion.div
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              className="glass-card rounded-3xl p-6 sm:p-8 text-center"
-            >
-              <h2 className="text-xl font-semibold mb-2">Live Demo Preview</h2>
-              <p className="text-sm text-muted-foreground mb-6 max-w-lg mx-auto">
-                This is a showcase page for the {project.title}. The full source code is
-                available on GitHub — clone the repo and run it locally for the complete
-                interactive experience.
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-brand text-primary-foreground px-6 py-3 text-sm font-semibold shadow-md shadow-brand-glow/25 hover:opacity-90 transition-opacity"
-                >
-                  <Github className="h-4 w-4" />
-                  Clone on GitHub
-                </a>
-                <a
-                  href="/#contact"
-                  className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-6 py-3 text-sm font-semibold text-accent hover:border-accent/80 hover:bg-accent/20 transition-all"
-                >
-                  Contact Dires
-                </a>
-              </div>
-            </motion.div>
           </div>
         </section>
       </main>
