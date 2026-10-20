@@ -54,10 +54,10 @@ export function AboutPortrait() {
           className="absolute -inset-2 rounded-3xl bg-gradient-brand opacity-60 blur-md"
         />
 
-        {/* Photo container */}
-        <div className="relative aspect-[4/5] rounded-3xl overflow-hidden glass-card glow-ring">
+        {/* Photo container — square aspect ratio so the tighter crop shows properly */}
+        <div className="relative aspect-square rounded-3xl overflow-hidden glass-card glow-ring">
           <img
-            src={profile.photo}
+            src="/profile-about.jpg"
             alt={profile.photoAlt}
             className="h-full w-full object-cover"
           />
