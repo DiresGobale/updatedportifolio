@@ -47,15 +47,22 @@ export function Hero() {
                   fontWeight: 800,
                 }}
               >
-                {["G", "o", "b", "a", "l", "e"].map((letter, i) => (
+                {[
+                  { letter: "G", color: "#ef4444" },
+                  { letter: "o", color: "#f59e0b" },
+                  { letter: "b", color: "#22c55e" },
+                  { letter: "a", color: "#06b6d4" },
+                  { letter: "l", color: "#a855f7" },
+                  { letter: "e", color: "#ec4899" },
+                ].map((item, i) => (
                   <motion.span
                     key={i}
                     initial={{
                       opacity: 0,
-                      x: [120, -80, 60, -40, 0][i] ?? 0,
-                      y: [-100, 80, -60, 100, -80, 60][i] ?? 0,
-                      rotate: [180, -180, 90, -90, 360, -360][i] ?? 0,
-                      scale: 0.3,
+                      x: [300, -250, 200, -300, 250, -200][i],
+                      y: [-200, 250, -300, 200, -250, 300][i],
+                      rotate: [720, -540, 360, -720, 540, -360][i],
+                      scale: 0.1,
                     }}
                     animate={{
                       opacity: 1,
@@ -65,24 +72,23 @@ export function Hero() {
                       scale: 1,
                     }}
                     transition={{
-                      delay: 0.8 + i * 0.15,
-                      duration: 0.8,
+                      delay: 1 + i * 0.4,
+                      duration: 1.5,
                       ease: [0.22, 1, 0.36, 1],
                       type: "spring",
-                      stiffness: 200,
-                      damping: 12,
+                      stiffness: 60,
+                      damping: 14,
+                      mass: 1.2,
                     }}
+                    whileHover={{ scale: 1.2, rotate: [0, 5, -5, 0], transition: { duration: 0.4 } }}
                     style={{
-                      background: "linear-gradient(135deg, #a855f7, #6366f1, #3b82f6)",
-                      WebkitBackgroundClip: "text",
-                      backgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      filter: "drop-shadow(0 0 16px rgba(168, 85, 247, 0.4))",
+                      color: item.color,
+                      filter: `drop-shadow(0 0 20px ${item.color}80)`,
                       display: "inline-block",
                       transformOrigin: "center",
                     }}
                   >
-                    {letter}
+                    {item.letter}
                   </motion.span>
                 ))}
               </span>
