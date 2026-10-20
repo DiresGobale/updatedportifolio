@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Code2, Download } from "lucide-react"
+import { Menu, X, Code2, Download, Shield } from "lucide-react"
 import { navLinks, profile } from "@/lib/portfolio-data"
 import { cn } from "@/lib/utils"
 
@@ -118,8 +118,16 @@ export function Navbar() {
             })}
           </ul>
 
-          {/* CTA on desktop — Download CV button (right side of navbar) */}
-          <div className="hidden md:block">
+          {/* CTA on desktop — Admin link + Download CV button (right side of navbar) */}
+          <div className="hidden md:flex items-center gap-2">
+            <a
+              href="/admin"
+              aria-label="Admin Panel"
+              className="inline-flex items-center justify-center rounded-full border border-border/40 p-2 text-muted-foreground hover:text-accent hover:border-accent/40 transition-all"
+              title="Admin Panel"
+            >
+              <Shield className="h-4 w-4" />
+            </a>
             <a
               href={profile.resumeUrl}
               download="Dires-Gobale-CV.pdf"
@@ -130,8 +138,16 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* Mobile toggle + Download CV button — visible on small screens only */}
+          {/* Mobile toggle + Admin + Download CV — visible on small screens only */}
           <div className="flex md:hidden items-center gap-2">
+            {/* Admin icon */}
+            <a
+              href="/admin"
+              aria-label="Admin Panel"
+              className="inline-flex items-center justify-center rounded-full border border-border/40 p-2 text-muted-foreground hover:text-accent hover:border-accent/40 transition-all"
+            >
+              <Shield className="h-4 w-4" />
+            </a>
             {/* Download CV — compact icon-only button on mobile */}
             <a
               href={profile.resumeUrl}

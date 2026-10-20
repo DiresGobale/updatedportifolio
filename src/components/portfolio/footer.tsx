@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code2, ArrowUp } from "lucide-react"
+import { Code2, ArrowUp, Shield } from "lucide-react"
 import { navLinks, profile, socialLinks } from "@/lib/portfolio-data"
 import { SocialIcon } from "./social-icon"
 
@@ -44,6 +44,15 @@ export function Footer() {
                   </button>
                 </li>
               ))}
+              <li>
+                <a
+                  href="/admin"
+                  className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-accent transition-colors"
+                >
+                  <Shield className="h-3.5 w-3.5" />
+                  Admin
+                </a>
+              </li>
             </ul>
           </div>
 
