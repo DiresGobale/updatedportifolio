@@ -200,16 +200,12 @@
   .floating-orb {
     position: absolute;
     border-radius: 9999px;
-    /* 40px blur instead of 80px — halves rasterization cost.
-       Modern browsers also auto-promote large blurred divs to a
-       separate GPU layer, so this stays performant even at 500px. */
-    filter: blur(40px);
-    /* GPU-promote the orb so its blur rasterization is cached and
-       only re-rasterized when its content/size actually changes,
-       not on every frame its sibling animations run. */
-    will-change: transform, opacity;
-    /* Backface-visibility hidden hints to the browser to promote
-       the element to its own compositor layer. */
+    /* 20px blur — minimal rasterization cost.
+       Combined with contain: strict in performance.css,
+       the browser caches this as a static GPU layer. */
+    filter: blur(20px);
+    /* Removed will-change to avoid permanent GPU layers.
+       Performance.css handles this via contain: strict. */
     backface-visibility: hidden;
     opacity: 0.5;
     pointer-events: none;

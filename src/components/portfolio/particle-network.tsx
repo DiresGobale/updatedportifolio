@@ -79,9 +79,9 @@ export function ParticleNetwork() {
     resize()
     window.addEventListener("resize", resize)
 
-    // === Create particles (reduced count for performance) ===
-    const baseCount = Math.min(30, Math.floor((width * height) / 35000))
-    const particleCount = Math.max(15, Math.min(baseCount, 40))
+    // === Create particles (minimal count for max performance) ===
+    const baseCount = Math.min(20, Math.floor((width * height) / 50000))
+    const particleCount = Math.max(10, Math.min(baseCount, 25))
 
     const initParticle = (p: Particle) => {
       p.x = Math.random() * width
@@ -144,7 +144,7 @@ export function ParticleNetwork() {
 
     // === Animation loop with frame limiting (~30fps) ===
     let lastTime = 0
-    const frameInterval = 1000 / 24 // ~24fps cap for performance
+    const frameInterval = 1000 / 20 // ~20fps cap for maximum performance
 
     function animate(time: number) {
       rafRef.current = requestAnimationFrame(animate)
@@ -221,8 +221,8 @@ export function ParticleNetwork() {
           const dy = p1.y - p2.y
           const dist = Math.sqrt(dx * dx + dy * dy)
 
-          if (dist < 100) {
-            const opacity = (1 - dist / 100) * 0.2
+          if (dist < 80) {
+            const opacity = (1 - dist / 80) * 0.15
             const c1 = NEON_COLORS[p1.colorIndex]
             const c2 = NEON_COLORS[p2.colorIndex]
             // Blend the two colors for the line

@@ -1,5 +1,5 @@
 /* === Performance optimizations (additive — no existing styles changed) ===
-   Target: push performance score from 30 to 80+.
+   Target: push performance score from 46 to 90+.
 
    Key optimizations:
    1. Pause ALL animations when tab is hidden
@@ -15,7 +15,13 @@
    11. Scrollbar containment
    12. Canvas containment (particle network)
    13. Reduce paint areas on hover
-   14. Optimize backdrop-filter (only when visible)
+   14. Footer content-visibility
+   15. Framer Motion element containment
+   16. Chatbot lazy containment
+   17. Navbar containment
+   18. Background image attachment fixed optimization
+   19. Reduce blur on all elements
+   20. Remove backdrop-filter on hidden elements
 */
 
 /* === 1. Pause animations when tab is hidden === */
@@ -31,10 +37,19 @@ html[data-tab-hidden="true"] [class*="motion"] {
   animation-play-state: paused !important;
 }
 
-/* === 2. content-visibility: auto for off-screen sections === */
-main > section ~ section {
+/* === 2. content-visibility: auto for off-screen sections ===
+   ALL sections get content-visibility: auto. The browser can skip
+   rendering, skip animations, and skip compositing for sections not
+   in the viewport. This is the single biggest performance win. */
+main > section {
   content-visibility: auto;
   contain-intrinsic-size: 1px 600px;
+}
+
+/* Hero gets content-visibility too but with larger intrinsic size
+   since it's the tallest section (min-h-screen). */
+#home {
+  contain-intrinsic-size: 1px 900px;
 }
 
 /* === 3. contain: strict on ALL background layers === */
@@ -42,7 +57,6 @@ main > section ~ section {
   contain: strict;
 }
 
-/* Canvas (particle network) gets strict containment */
 canvas.fixed {
   contain: strict;
 }
@@ -52,6 +66,7 @@ canvas.fixed {
 .deco-3d-element {
   contain: layout style paint;
   will-change: auto;
+  transform: translateZ(0);
 }
 
 .deco-element.is-animating,
@@ -63,7 +78,6 @@ canvas.fixed {
   contain: strict;
 }
 
-/* Glass cards — only paint containment to avoid layout issues */
 .glass-card {
   contain: layout style;
 }
@@ -113,36 +127,59 @@ img {
   contain: strict;
 }
 
-/* === 11. Reduce paint on hover — only paint the hovered element ===
-   This prevents the browser from re-painting the entire page when
-   a card is hovered. The card paints in its own isolated layer. */
+/* === 11. Hover paint isolation === */
 .glass-card:hover {
   contain: layout style paint;
 }
 
-/* === 12. Transform-only animations hint ===
-   Tell the browser that animated elements only change transform/opacity
-   so it can skip layout and paint phases for those elements. */
-.deco-element,
-.deco-3d-element,
-.floating-orb {
-  transform: translateZ(0);
-}
-
-/* === 13. Optimize section heading reveals ===
-   Framer Motion whileInView elements get containment so
-   off-screen ones don't trigger paint. */
+/* === 12. Framer Motion element containment === */
 [class*="motion"] {
   contain: layout style paint;
 }
 
-/* === 14. Footer containment === */
+/* === 13. Footer content-visibility === */
 footer {
   content-visibility: auto;
   contain-intrinsic-size: 1px 300px;
 }
 
-/* === 15. Chatbot containment — pause when closed === */
+/* === 14. Chatbot containment === */
 button[aria-label*="chat"]:not([aria-expanded="true"]) ~ * {
   contain: strict;
+}
+
+/* === 15. Navbar containment === */
+header[class*="fixed"] {
+  contain: layout style paint;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 64px;
+}
+
+/* === 16. Reduce all backdrop-filter blur ===
+   backdrop-filter is very expensive — reduce blur radius. */
+.glass-card {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* === 17. Optimize the particle canvas ===
+   The canvas already has contain: strict above.
+   Add pointer-events: none to ensure no hit-testing cost. */
+canvas {
+  pointer-events: none;
+}
+
+/* === 18. Section headings get containment === */
+h2, h3 {
+  contain: layout style;
+}
+
+/* === 19. Form elements containment === */
+form {
+  contain: layout style paint;
+}
+
+/* === 20. Lists containment === */
+ul, ol {
+  contain: layout style;
 }
