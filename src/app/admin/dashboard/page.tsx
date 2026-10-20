@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import {
   LayoutDashboard, FolderGit2, Sparkles, Users, User, LogOut,
-  Plus, Trash2, Edit3, Save, X, ArrowLeft, Code2,
+  Plus, Trash2, Edit3, Save, X, ArrowLeft, Code2, BarChart3, Link2, Briefcase, Info,
 } from "lucide-react"
-import { projects as initialProjects, skillCategories as initialSkills, testimonials as initialTestimonials, profile as initialProfile, services as initialServices, techProgress as initialTechProgress } from "@/lib/portfolio-data"
+import { projects as initialProjects, skillCategories as initialSkills, testimonials as initialTestimonials, profile as initialProfile, services as initialServices, techProgress as initialTechProgress, stats as initialStats, socialLinks as initialSocialLinks, aboutContent as initialAboutContent, navLinks as initialNavLinks } from "@/lib/portfolio-data"
 import { TechProgress as TechProgressType } from "@/lib/portfolio-data"
 
-type Tab = "overview" | "projects" | "skills" | "testimonials" | "profile" | "tech"
+type Tab = "overview" | "projects" | "skills" | "testimonials" | "profile" | "tech" | "services" | "stats" | "socials" | "about" | "navlinks"
 
 export default function AdminDashboard() {
   const router = useRouter()
@@ -22,6 +22,11 @@ export default function AdminDashboard() {
   const [testimonials, setTestimonials] = useState(initialTestimonials)
   const [profile, setProfile] = useState(initialProfile)
   const [techProgress, setTechProgress] = useState<TechProgressType[]>(initialTechProgress)
+  const [services, setServices] = useState(initialServices)
+  const [stats, setStats] = useState(initialStats)
+  const [socialLinks, setSocialLinks] = useState(initialSocialLinks)
+  const [aboutContent, setAboutContent] = useState(initialAboutContent)
+  const [navLinks, setNavLinks] = useState(initialNavLinks)
   const [editingId, setEditingId] = useState<number | null>(null)
   const [editingTestimonial, setEditingTestimonial] = useState<number | null>(null)
 
@@ -50,8 +55,13 @@ export default function AdminDashboard() {
     { id: "overview", label: "Overview", icon: LayoutDashboard },
     { id: "projects", label: "Projects", icon: FolderGit2 },
     { id: "skills", label: "Skills", icon: Sparkles },
+    { id: "tech", label: "Tech Progress", icon: BarChart3 },
     { id: "testimonials", label: "Testimonials", icon: Users },
-    { id: "tech", label: "Tech Progress", icon: Sparkles },
+    { id: "services", label: "Services", icon: Briefcase },
+    { id: "stats", label: "Stats", icon: BarChart3 },
+    { id: "about", label: "About Content", icon: Info },
+    { id: "socials", label: "Social Links", icon: Link2 },
+    { id: "navlinks", label: "Nav Links", icon: Code2 },
     { id: "profile", label: "Profile", icon: User },
   ]
 
@@ -274,6 +284,132 @@ export default function AdminDashboard() {
                   <button onClick={() => alert("Profile updated (demo — changes are in-memory).")} className="flex items-center gap-2 rounded-lg bg-gradient-brand text-primary-foreground px-4 py-2.5 text-sm font-semibold hover:opacity-90"><Save className="h-4 w-4" /> Save Changes</button>
                   <button onClick={() => setProfile(initialProfile)} className="flex items-center gap-2 rounded-lg border border-border/40 px-4 py-2.5 text-sm font-medium hover:bg-secondary/60 transition-colors"><X className="h-4 w-4" /> Reset</button>
                 </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* === Services CRUD === */}
+          {activeTab === "services" && (
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold">Services ({services.length})</h2>
+                <button onClick={() => setServices(prev => [...prev, { title: "New Service", description: "Description", features: [], icon: "code" } as any])} className="flex items-center gap-2 rounded-lg bg-gradient-brand text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90"><Plus className="h-4 w-4" /> Add Service</button>
+              </div>
+              <div className="space-y-3">
+                {services.map((s, i) => (
+                  <div key={i} className="glass-card rounded-xl p-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-semibold">{s.title}</h3>
+                        <p className="text-xs text-muted-foreground line-clamp-2 mt-1">{s.description}</p>
+                        <div className="flex flex-wrap gap-1 mt-2">{s.features.map((f, j) => <span key={j} className="text-[10px] rounded bg-secondary/60 px-1.5 py-0.5">{f}</span>)}</div>
+                      </div>
+                      <button onClick={() => setServices(prev => prev.filter((_, j) => j !== i) as any)} className="text-muted-foreground hover:text-red-400 p-2 rounded-lg hover:bg-destructive/10 ml-3"><Trash2 className="h-4 w-4" /></button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* === Stats CRUD === */}
+          {activeTab === "stats" && (
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <h2 className="text-2xl font-bold mb-6">Stats ({stats.length})</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {stats.map((stat, i) => (
+                  <div key={i} className="glass-card rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <input value={stat.label} onChange={e => setStats(prev => prev.map((s, j) => j === i ? { ...s, label: e.target.value } : s))} className="rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-sm font-medium focus:outline-none focus:ring-1 focus:ring-accent flex-1 mr-2" />
+                      <button onClick={() => setStats(prev => prev.filter((_, j) => j !== i))} className="text-muted-foreground hover:text-red-400"><Trash2 className="h-4 w-4" /></button>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input type="number" value={stat.value} onChange={e => setStats(prev => prev.map((s, j) => j === i ? { ...s, value: parseInt(e.target.value) || 0 } : s))} className="rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-sm w-20 focus:outline-none focus:ring-1 focus:ring-accent" />
+                      <input value={stat.suffix} onChange={e => setStats(prev => prev.map((s, j) => j === i ? { ...s, suffix: e.target.value } : s))} className="rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-sm w-16 focus:outline-none focus:ring-1 focus:ring-accent" placeholder="+" />
+                    </div>
+                  </div>
+                ))}
+                <button onClick={() => setStats(prev => [...prev, { label: "New Stat", value: 0, suffix: "+", icon: "rocket" }])} className="glass-card rounded-xl p-4 flex items-center justify-center text-accent hover:bg-accent/10 transition-colors"><Plus className="h-5 w-5" /> Add Stat</button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* === About Content === */}
+          {activeTab === "about" && (
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <h2 className="text-2xl font-bold mb-6">About Content</h2>
+              <div className="glass-card rounded-2xl p-6 space-y-4 max-w-2xl">
+                <div>
+                  <label className="text-sm font-medium block mb-1.5">Heading</label>
+                  <input value={aboutContent.heading} onChange={e => setAboutContent(prev => ({ ...prev, heading: e.target.value }))} className="w-full rounded-xl bg-secondary/60 border border-border/40 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium block mb-1.5">Paragraph 1</label>
+                  <textarea value={aboutContent.paragraphs[0]} onChange={e => setAboutContent(prev => ({ ...prev, paragraphs: [e.target.value, ...prev.paragraphs.slice(1)] }))} rows={3} className="w-full rounded-xl bg-secondary/60 border border-border/40 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40 resize-none" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium block mb-1.5">Paragraph 2</label>
+                  <textarea value={aboutContent.paragraphs[1]} onChange={e => setAboutContent(prev => ({ ...prev, paragraphs: [...prev.paragraphs.slice(0, 1), e.target.value] }))} rows={3} className="w-full rounded-xl bg-secondary/60 border border-border/40 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40 resize-none" />
+                </div>
+                <div className="pt-2">
+                  <label className="text-sm font-medium block mb-2">Philosophy ({aboutContent.philosophy.length})</label>
+                  {aboutContent.philosophy.map((p, i) => (
+                    <div key={i} className="flex gap-2 mb-2">
+                      <input value={p.title} onChange={e => setAboutContent(prev => ({ ...prev, philosophy: prev.philosophy.map((x, j) => j === i ? { ...x, title: e.target.value } : x) }))} placeholder="Title" className="flex-1 rounded-lg bg-secondary/60 border border-border/40 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-accent" />
+                      <button onClick={() => setAboutContent(prev => ({ ...prev, philosophy: prev.philosophy.filter((_, j) => j !== i) }))} className="text-muted-foreground hover:text-red-400 p-2"><Trash2 className="h-4 w-4" /></button>
+                    </div>
+                  ))}
+                </div>
+                <div className="pt-2">
+                  <label className="text-sm font-medium block mb-2">Experience Timeline ({aboutContent.experience.length})</label>
+                  {aboutContent.experience.map((exp, i) => (
+                    <div key={i} className="rounded-lg bg-secondary/40 p-3 mb-2 space-y-2">
+                      <div className="flex gap-2">
+                        <input value={exp.period} onChange={e => setAboutContent(prev => ({ ...prev, experience: prev.experience.map((x, j) => j === i ? { ...x, period: e.target.value } : x) }))} placeholder="Period" className="flex-1 rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-accent" />
+                        <input value={exp.role} onChange={e => setAboutContent(prev => ({ ...prev, experience: prev.experience.map((x, j) => j === i ? { ...x, role: e.target.value } : x) }))} placeholder="Role" className="flex-1 rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-accent" />
+                        <button onClick={() => setAboutContent(prev => ({ ...prev, experience: prev.experience.filter((_, j) => j !== i) }))} className="text-muted-foreground hover:text-red-400 p-1"><Trash2 className="h-4 w-4" /></button>
+                      </div>
+                      <input value={exp.organization} onChange={e => setAboutContent(prev => ({ ...prev, experience: prev.experience.map((x, j) => j === i ? { ...x, organization: e.target.value } : x) }))} placeholder="Organization" className="w-full rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-accent" />
+                      <input value={exp.description} onChange={e => setAboutContent(prev => ({ ...prev, experience: prev.experience.map((x, j) => j === i ? { ...x, description: e.target.value } : x) }))} placeholder="Description" className="w-full rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-accent" />
+                    </div>
+                  ))}
+                  <button onClick={() => setAboutContent(prev => ({ ...prev, experience: [...prev.experience, { period: "2025", role: "New Role", organization: "Org", description: "Description" }] }))} className="text-xs text-accent flex items-center gap-1"><Plus className="h-3 w-3" /> Add Experience</button>
+                </div>
+                <button onClick={() => alert("About content updated (demo).")} className="flex items-center gap-2 rounded-lg bg-gradient-brand text-primary-foreground px-4 py-2.5 text-sm font-semibold hover:opacity-90"><Save className="h-4 w-4" /> Save All</button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* === Social Links === */}
+          {activeTab === "socials" && (
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <h2 className="text-2xl font-bold mb-6">Social Links ({socialLinks.length})</h2>
+              <div className="space-y-3">
+                {socialLinks.map((link, i) => (
+                  <div key={i} className="glass-card rounded-xl p-4 flex items-center gap-3">
+                    <span className="text-sm font-medium w-24">{link.label}</span>
+                    <input value={link.href} onChange={e => setSocialLinks(prev => prev.map((s, j) => j === i ? { ...s, href: e.target.value } : s))} className="flex-1 rounded-lg bg-secondary/60 border border-border/40 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-accent" />
+                    <button onClick={() => setSocialLinks(prev => prev.filter((_, j) => j !== i))} className="text-muted-foreground hover:text-red-400 p-2"><Trash2 className="h-4 w-4" /></button>
+                  </div>
+                ))}
+                <button onClick={() => setSocialLinks(prev => [...prev, { label: "New", href: "https://", icon: "mail" } as any])} className="text-xs text-accent flex items-center gap-1"><Plus className="h-3 w-3" /> Add Social Link</button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* === Nav Links === */}
+          {activeTab === "navlinks" && (
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <h2 className="text-2xl font-bold mb-6">Navigation Links ({navLinks.length})</h2>
+              <div className="space-y-3">
+                {navLinks.map((link, i) => (
+                  <div key={i} className="glass-card rounded-xl p-4 flex items-center gap-3">
+                    <input value={link.label} onChange={e => setNavLinks(prev => prev.map((n, j) => j === i ? { ...n, label: e.target.value } : n))} className="rounded-lg bg-secondary/60 border border-border/40 px-3 py-2 text-sm w-32 focus:outline-none focus:ring-1 focus:ring-accent" />
+                    <input value={link.href} onChange={e => setNavLinks(prev => prev.map((n, j) => j === i ? { ...n, href: e.target.value } : n))} className="flex-1 rounded-lg bg-secondary/60 border border-border/40 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-accent" />
+                    <button onClick={() => setNavLinks(prev => prev.filter((_, j) => j !== i))} className="text-muted-foreground hover:text-red-400 p-2"><Trash2 className="h-4 w-4" /></button>
+                  </div>
+                ))}
+                <button onClick={() => setNavLinks(prev => [...prev, { label: "New", href: "#new" }])} className="text-xs text-accent flex items-center gap-1"><Plus className="h-3 w-3" /> Add Nav Link</button>
               </div>
             </motion.div>
           )}
