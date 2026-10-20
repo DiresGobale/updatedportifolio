@@ -39,6 +39,17 @@ export function Hero() {
               <span className="block text-gradient text-5xl sm:text-6xl lg:text-7xl xl:text-8xl my-1 leading-tight">
                 {profile.firstName}
               </span>
+              <span className="block text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mt-1 mb-1 leading-tight"
+                style={{
+                  background: "linear-gradient(135deg, #f59e0b, #ef4444, #ec4899)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  filter: "drop-shadow(0 0 12px rgba(245, 158, 11, 0.3))",
+                }}
+              >
+                Gobale
+              </span>
               <span className="block text-lg sm:text-2xl lg:text-3xl xl:text-4xl mt-2 text-foreground/85 min-h-[1.5em] sm:min-h-[1.4em]">
                 <TypewriterEffect words={profile.roles} />
               </span>
