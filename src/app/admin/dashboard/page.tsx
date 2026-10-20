@@ -177,18 +177,25 @@ export default function AdminDashboard() {
 
           {activeTab === "skills" && (
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-              <h2 className="text-2xl font-bold mb-6">Skill Categories ({skills.length})</h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold">Skill Categories ({skills.length})</h2>
+                <button onClick={() => setSkills(prev => [...prev, { title: "New Category", icon: "layout", description: "Description", skills: [] } as any])} className="flex items-center gap-2 rounded-lg bg-gradient-brand text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90"><Plus className="h-4 w-4" /> Add Category</button>
+              </div>
               <div className="space-y-3">
                 {skills.map((cat, i) => (
                   <div key={i} className="glass-card rounded-xl p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-sm font-semibold">{cat.title} ({cat.skills.length})</h3>
-                      <button onClick={() => setSkills(prev => prev.filter((_, j) => j !== i) as any)} className="text-muted-foreground hover:text-red-400 p-2 rounded-lg hover:bg-destructive/10"><Trash2 className="h-4 w-4" /></button>
+                      <div className="flex items-center gap-2 flex-1">
+                        <input value={cat.title} onChange={e => setSkills(prev => prev.map((c, j) => j === i ? { ...c, title: e.target.value } : c) as any)} className="rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-sm font-semibold focus:outline-none focus:ring-1 focus:ring-accent flex-1" />
+                        <input value={cat.description} onChange={e => setSkills(prev => prev.map((c, j) => j === i ? { ...c, description: e.target.value } : c) as any)} placeholder="Description" className="rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-xs text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent flex-1" />
+                      </div>
+                      <button onClick={() => setSkills(prev => prev.filter((_, j) => j !== i) as any)} className="text-muted-foreground hover:text-red-400 p-2 rounded-lg hover:bg-destructive/10 ml-2"><Trash2 className="h-4 w-4" /></button>
                     </div>
                     <div className="space-y-2">
                       {cat.skills.map((s, j) => (
-                        <div key={j} className="flex items-center justify-between rounded-lg bg-secondary/40 px-3 py-2">
-                          <div><p className="text-xs font-medium">{s.name}</p><p className="text-[10px] text-muted-foreground">{s.description}</p></div>
+                        <div key={j} className="flex items-center gap-2 rounded-lg bg-secondary/40 px-3 py-2">
+                          <input value={s.name} onChange={e => setSkills(prev => prev.map((c, k) => k === i ? { ...c, skills: c.skills.map((sk, l) => l === j ? { ...sk, name: e.target.value } : sk) } : c) as any)} className="rounded bg-transparent border-b border-border/20 px-1 py-0.5 text-xs font-medium focus:outline-none focus:border-accent flex-1" />
+                          <input value={s.description} onChange={e => setSkills(prev => prev.map((c, k) => k === i ? { ...c, skills: c.skills.map((sk, l) => l === j ? { ...sk, description: e.target.value } : sk) } : c) as any)} className="rounded bg-transparent border-b border-border/20 px-1 py-0.5 text-[10px] text-muted-foreground focus:outline-none focus:border-accent flex-1" />
                           <button onClick={() => setSkills(prev => prev.map((c, k) => k === i ? { ...c, skills: c.skills.filter((_, l) => l !== j) } : c) as any)} className="text-muted-foreground hover:text-red-400"><X className="h-3 w-3" /></button>
                         </div>
                       ))}
@@ -293,18 +300,24 @@ export default function AdminDashboard() {
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold">Services ({services.length})</h2>
-                <button onClick={() => setServices(prev => [...prev, { title: "New Service", description: "Description", features: [], icon: "code" } as any])} className="flex items-center gap-2 rounded-lg bg-gradient-brand text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90"><Plus className="h-4 w-4" /> Add Service</button>
+                <button onClick={() => setServices(prev => [...prev, { title: "New Service", description: "Description", features: ["Feature 1"], icon: "code" } as any])} className="flex items-center gap-2 rounded-lg bg-gradient-brand text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90"><Plus className="h-4 w-4" /> Add Service</button>
               </div>
               <div className="space-y-3">
                 {services.map((s, i) => (
                   <div key={i} className="glass-card rounded-xl p-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-semibold">{s.title}</h3>
-                        <p className="text-xs text-muted-foreground line-clamp-2 mt-1">{s.description}</p>
-                        <div className="flex flex-wrap gap-1 mt-2">{s.features.map((f, j) => <span key={j} className="text-[10px] rounded bg-secondary/60 px-1.5 py-0.5">{f}</span>)}</div>
-                      </div>
-                      <button onClick={() => setServices(prev => prev.filter((_, j) => j !== i) as any)} className="text-muted-foreground hover:text-red-400 p-2 rounded-lg hover:bg-destructive/10 ml-3"><Trash2 className="h-4 w-4" /></button>
+                    <div className="flex items-center gap-2 mb-2">
+                      <input value={s.title} onChange={e => setServices(prev => prev.map((sv, j) => j === i ? { ...sv, title: e.target.value } : sv) as any)} className="rounded-lg bg-secondary/60 border border-border/40 px-3 py-1.5 text-sm font-semibold focus:outline-none focus:ring-1 focus:ring-accent flex-1" />
+                      <button onClick={() => setServices(prev => prev.filter((_, j) => j !== i) as any)} className="text-muted-foreground hover:text-red-400 p-2 rounded-lg hover:bg-destructive/10"><Trash2 className="h-4 w-4" /></button>
+                    </div>
+                    <textarea value={s.description} onChange={e => setServices(prev => prev.map((sv, j) => j === i ? { ...sv, description: e.target.value } : sv) as any)} rows={2} className="w-full rounded-lg bg-secondary/60 border border-border/40 px-3 py-2 text-xs text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent resize-none mb-2" />
+                    <div className="flex flex-wrap gap-1.5">
+                      {s.features.map((f, j) => (
+                        <span key={j} className="flex items-center gap-1 rounded bg-secondary/60 px-2 py-0.5 text-[10px]">
+                          <input value={f} onChange={e => setServices(prev => prev.map((sv, k) => k === i ? { ...sv, features: sv.features.map((ft, l) => l === j ? e.target.value : ft) } : sv) as any)} className="bg-transparent focus:outline-none w-24 text-[10px]" />
+                          <button onClick={() => setServices(prev => prev.map((sv, k) => k === i ? { ...sv, features: sv.features.filter((_, l) => l !== j) } : sv) as any)} className="text-muted-foreground hover:text-red-400"><X className="h-2.5 w-2.5" /></button>
+                        </span>
+                      ))}
+                      <button onClick={() => setServices(prev => prev.map((sv, k) => k === i ? { ...sv, features: [...sv.features, "New Feature"] } : sv) as any)} className="text-[10px] text-accent">+ feature</button>
                     </div>
                   </div>
                 ))}
