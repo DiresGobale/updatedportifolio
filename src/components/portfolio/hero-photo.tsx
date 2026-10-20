@@ -113,6 +113,13 @@ export function HeroPhoto({ src, alt, className }: HeroPhotoProps) {
             src={src}
             alt={alt}
             className="h-full w-full object-cover"
+            // High priority + immediate decode + eager loading = fastest paint for
+            // the hero photo (above-the-fold). Width/height attributes prevent CLS.
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            width={384}
+            height={384}
           />
           <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/30 via-transparent to-transparent pointer-events-none" />
         </div>
