@@ -222,7 +222,23 @@ export async function POST(req: NextRequest) {
     }
 
     // Call the LLM
-    const zai = await ZAI.create()
+    // On Vercel/serverless: read config from env vars at runtime (file-based
+    //   .z-ai-config doesn't survive Vercel's output tracing because it's
+    //   gitignored and written at build time, not part of the source).
+    // On local dev: fall back to ZAI.create() which reads .z-ai-config from
+    //   process.cwd() / ~/.z-ai-config / /etc/.z-ai-config.
+    let zai: ZAI
+    if (process.env.ZAI_API_KEY) {
+      zai = new ZAI({
+        baseUrl: process.env.ZAI_BASE_URL || "https://internal-api.z.ai/v1",
+        apiKey: process.env.ZAI_API_KEY,
+        chatId: process.env.ZAI_CHAT_ID || "",
+        token: process.env.ZAI_TOKEN || "",
+        userId: process.env.ZAI_USER_ID || "",
+      })
+    } else {
+      zai = await ZAI.create()
+    }
     const completion = await zai.chat.completions.create({
       messages: conv,
       thinking: { type: "disabled" },
