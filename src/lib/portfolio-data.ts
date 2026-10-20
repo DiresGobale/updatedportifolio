@@ -66,7 +66,7 @@ export const profile = {
   introduction:
     "I'm Dires — a fourth-year Information System student at Injibara University with a passion for building real, working software. My toolkit spans the full web stack (React, Next.js, Node.js, Express, PostgreSQL), mobile development with Flutter, and UI/UX design in Figma. Every coursework project is a chance to ship something I'd be proud to show a real client.",
   photo:
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+    "/profile.jpg",
   photoAlt: "Portrait of Dires",
   location: "Injibara, Ethiopia — Remote-friendly",
   email: "dires7481@gmail.com",
